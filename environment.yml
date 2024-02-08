@@ -1,0 +1,9 @@
+name: dsci310_group12_env
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - conda
+  - python=3.7
+  - pandas==1.0.2
+  - jupyterlab
