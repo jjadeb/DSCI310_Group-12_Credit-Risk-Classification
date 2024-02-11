@@ -4,6 +4,6 @@ channels:
   - defaults
 dependencies:
   - conda
-  - python=3.7
-  - pandas==1.0.2
+  - python=3.11.6
+  - pandas==2.2.0
   - jupyterlab
