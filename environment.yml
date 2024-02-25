@@ -5,5 +5,10 @@ channels:
 dependencies:
   - conda
   - python=3.11.6
-  - pandas==2.2.0
+  - scipy=1.12.0
+  - numpy=1.26.4
+  - scikit-learn=1.4.1.post1
+  - pandas==2.2.1
+  - matplotlib==3.8.3
+  - seaborn==0.13.2
   - jupyterlab
