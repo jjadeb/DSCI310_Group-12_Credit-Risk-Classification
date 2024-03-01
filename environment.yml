@@ -15,3 +15,4 @@ dependencies:
   - jupyterlab
   - graphviz==2.50.0
   - pygraphviz==1.9
+  - python-graphviz==0.20.1
