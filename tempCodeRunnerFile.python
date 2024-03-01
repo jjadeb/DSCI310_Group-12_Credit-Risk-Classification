@@ -1,0 +1,59 @@
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy.integrate import solve_ivp
+
+# Define the parameters
+taub = 30000
+taut = 45000
+t1on = 120000
+t1off = 780000
+serca_bas = 0.35
+serca_stim = 0.35  # Set this to 0.3 for Figure 5
+pleak_bas = 0.00015
+pleak_stim = 0.000225  # Set this to simulate Figure 4
+g_bas = 6
+g_stim = 8
+tglu_on = 420000
+
+# Define the Heaviside function
+def heav(x):
+    return 1 if x > 0 else 0
+
+# Define the time-dependent parameters
+def x1on(t):
+    return heav(t - t1on) * (1 - np.exp(-(t - t1on) / taub)) * (1 - np.exp(-(t - t1on) / taut))
+
+def x1off(t):
+    return heav(t - t1off) * (1 - np.exp(-(t - t1off) / taub)) * (1 - np.exp(-(t - t1off) / taut))
+
+def gon(t):
+    return heav(t - tglu_on) * (1 - np.exp(-(t - tglu_on) / taub)) * (1 - np.exp(-(t - tglu_on) / taut))
+
+def vserca(t):
+    return serca_bas + (serca_stim - serca_bas) * (x1on(t) - x1off(t))
+
+def pleak(t):
+    return pleak_bas + (pleak_stim - pleak_bas) * (x1on(t) - x1off(t))
+
+def g(t):
+    return g_bas + (g_stim - g_bas) * gon(t)
+
+# Time span for the simulation
+t_span = [0, 800000]  # Adjust based on the required simulation duration
+t_eval = np.linspace(t_span[0], t_span[1], 1000)  # Time points at which to store the solution
+
+# Solve the system (no actual ODEs given, so we just track the parameter changes over time)
+sol_vserca = [vserca(t) for t in t_eval]
+sol_pleak = [pleak(t) for t in t_eval]
+sol_g = [g(t) for t in t_eval]
+
+# Plotting the results
+plt.figure(figsize=(10, 4))
+plt.plot(t_eval, sol_pleak, label='Pleak', color='black')
+plt.plot(t_eval, sol_g, label='Glucose', linestyle='dashed', color='black')
+plt.xlabel('Time (ms)')
+plt.ylabel('Pleak (s^-1), Glucose')
+plt.title('Simulation Results')
+plt.legend()
+plt.show()
+/Users/Yovindu/opt/miniconda3/envs/sMBPLS_env
