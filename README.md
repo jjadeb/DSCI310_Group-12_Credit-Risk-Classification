@@ -1,15 +1,16 @@
 # Predictive Modelling: German Credit Risk 
 
 ## Table Of Contents  
-- [Project Title](#DSCI310_Project_Group_12)
-- [Authors](#Authors)
-- [About](#About)
-- [Data Description](#Data-description)
-- [Report](Report)
-- [Usage](Usage)
-- [Dependencies](Dependencies)
-- [License](License)
-- [References](References)
+## Table Of Contents  
+- [Project Title](#project-title)
+- [Authors](#authors)
+- [About](#about)
+- [Data Description](#data-description)
+- [Report](#report)
+- [Usage](#usage)
+- [Dependencies](#dependencies)
+- [License](#license)
+- [References](#references)
 
 ## Authors
 -Shahrukh Islam Prithibi
