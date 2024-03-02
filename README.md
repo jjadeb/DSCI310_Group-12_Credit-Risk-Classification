@@ -1,6 +1,5 @@
 # Predictive Modelling: German Credit Risk 
-
-## Table Of Contents  
+ 
 ## Table Of Contents  
 - [Project Title](#project-title)
 - [Authors](#authors)
