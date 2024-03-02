@@ -18,7 +18,7 @@
 - Jade Bouchard
 
 ## About
-The goal of our analysis is to classify whether someone is a good or bad credit risk using attributes such as Credit History, Duration, and Residence. Our best performing model is a Random Forest model. This model gave us an accuracy of 0.8 on unseen data, a decent result compared to the dummy model accuracy of 0.7. We also obtained a precision score of 0.8, recall score of 0.95, and F1 Score of 0.87. Our model performs decently well in terms of identifying people who are a good credit risk. However if this model is to have a hand in real-world decision making, precision should be improved in order to minimize classifying poor credit risks as good credit risks (false positives). In addition, more research should be done in order to ensure the model produces fair and equitable recommendations.
+The goal of our analysis is to classify whether someone is a good or bad credit risk using attributes such as Credit History, Duration, and Residence. Our best-performing model is a Random Forest model. This model gave us an accuracy of 0.8 on unseen data, a decent result compared to the dummy model's accuracy of 0.7. We also obtained a precision score of 0.8, a recall score of 0.95, and F1 Score of 0.87. Our model performs decently well in terms of identifying people who are a good credit risk. However, if this model is to have a hand in real-world decision-making, precision should be improved to minimize classifying poor credit risks as good credit risks (false positives). In addition, more research should be done to ensure the model produces fair and equitable recommendations.
 
 ## Data Description
 The Statlog (German Credit Data) dataset, sourced from [this UCI’s Machine Learning Repository](https://archive.ics.uci.edu/dataset/144/statlog+german+credit+data), used for classifying individuals as good or bad credit risks based on a variety of attributes. A cost matrix is required for evaluation, where misclassification costs are outlined. The cost matrix indicates that it is worse to classify a customer as good when they are bad, compared to classifying a customer as bad when they are good. The dataset contains 1000 instances with 20 features. Each feature has a different role, type, and demographic information.
@@ -57,9 +57,9 @@ Next, under the "Kernel" menu click "Restart Kernel and Run All Cells...".
 
 ## License
 
-The Credit Risk Analysis report contained herein are licensed under the
+The Credit Risk Analysis report contained herein is licensed under the
 [Creative Commons Attribution 4.0 International (CC BY 4.0) License](https://creativecommons.org/licenses/by/4.0/legalcode).
-See [the license file](LICENSE.md) for more information. . If
+See [the license file](LICENSE.md) for more information. If
 re-using/re-mixing please provide attribution and link to this webpage.
 The software code contained within this repository is licensed under the
 MIT license. See [the license file](LICENSE.md) for more information.
