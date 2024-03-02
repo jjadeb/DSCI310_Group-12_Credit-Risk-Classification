@@ -13,10 +13,10 @@
 - [References](#references)
 
 ## Authors
--Shahrukh Islam Prithibi
--
--
--
+- Shahrukh Islam Prithibi
+- Sophie Yang
+- Yovindu Don
+- Jade Bouchard
 
 ## About
 The goal of our analysis is to classify whether someone is a good or bad credit risk using attributes such as Credit History, Duration, and Residence. Our best performing model is a Random Forest model. This model gave us an accuracy of 0.8 on unseen data, a decent result compared to the dummy model accuracy of 0.7. We also obtained a precision score of 0.8, recall score of 0.95, and F1 Score of 0.87. Our model performs decently well in terms of identifying people who are a good credit risk. However if this model is to have a hand in real-world decision making, precision should be improved in order to minimize classifying poor credit risks as good credit risks (false positives). In addition, more research should be done in order to ensure the model produces fair and equitable recommendations.
