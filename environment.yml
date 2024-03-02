@@ -1,5 +1,5 @@
 # install with conda env create -f environment.yml
-name: dsci310_group12_env
+name: credit_risk_predictor
 channels:
   - conda-forge
   - defaults
