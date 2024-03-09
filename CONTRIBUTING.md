@@ -1,5 +1,5 @@
 ## Feedback and Contributions
-We welcome any contirbutions from input to feedback and bug reports. Here are some guidelines that will help you along the way.
+We welcome any contributions from input to feedback and bug reports. Here are some guidelines that will help you along the way.
 
 ## How to Contribute
 
@@ -31,5 +31,5 @@ If you have any questions or need help with contributions open an issue for disc
 By contributing to this project, you agree to abide by its Code of Conduct as outlined. We expect all contributors to uphold these principles to ensure a welcoming and inclusive environment for everyone. 
 
 ## References
-This contribution guide has been inspired by the guidelines outlined in the Altair project's `CONTRIBUTION.md` document. For more details on the Altair project and their guidelines, visit: https://github.com/altair-viz/altair/blob/main/CONTRIBUTING.md
+This contribution guide has been inspired by the guidelines outlined in the Altair project's `CONTRIBUTION.md` document. For more details on the Altair project and its guidelines, visit: https://github.com/altair-viz/altair/blob/main/CONTRIBUTING.md
 
