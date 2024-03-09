@@ -4,9 +4,31 @@ from sklearn.metrics import roc_curve
 from sklearn.model_selection import GridSearchCV
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
+from sklearn.dummy import DummyClassifier
+from sklearn.model_selection import cross_val_score, cross_validate, train_test_split
+import pandas as pd
+import matplotlib.pyplot as plt
+import numpy as np
+import click
+from sklearn.tree import export_graphviz
+from IPython.display import Image
+import graphviz
 
+@click.command()
+@click.argument('column_name_path', type=str)
+@click.argument('x_train_path', type=str)
+@click.argument('y_train_path', type=str)
+@click.argument('x_test_path', type=str)
+@click.argument('y_test_path', type=str)
+@click.argument('fig_output_folder', type=str)
+@click.argument('data_output_folder', type=str)
 
-def main()
+def main(column_name_path, x_train_path,y_train_path,x_test_path,y_test_path,fig_output_folder,data_output_folder):
+    X_train = pd.read_csv(x_train_path)
+    X_test = pd.read_csv(x_test_path)
+    y_train = pd.read_csv(y_train_path).values.ravel()
+    y_test = pd.read_csv(y_test_path)
+    column_names = pd.read_csv(column_name_path).iloc[:, 0].to_list()
     #Creating a results dictionary
     results = {}
     
@@ -45,7 +67,7 @@ def main()
         scores_dict["mean_cv_scores"].append(scores["test_score"].mean())
     
     results_df = pd.DataFrame(scores_dict)
-    results_df.to_csv(f'{data_output_folder}/logistic_regression_C_optimization.csv')
+    results_df.to_csv(f'{data_output_folder}/logistic_regression_C_optimization.csv', index = False)
     
     # Extracting the best parameter
     highest_mean_cv_score_index = results_df['mean_cv_scores'].idxmax()
@@ -69,7 +91,8 @@ def main()
     precision = precision_score(y_test, y_pred)
     recall = recall_score(y_test, y_pred)
     f1 = f1_score(y_test, y_pred)
-    
+
+    test_results = {}
     test_results['Logistic Regression'] = [accuracy,precision,recall,f1]
     
     
@@ -126,7 +149,6 @@ def main()
     
     # Get the best hyperparameters
     best_params = grid_search.best_params_
-    print("Best Hyperparameters:", best_params)
     
     # Get the best model
     best_model = grid_search.best_estimator_
@@ -154,10 +176,9 @@ def main()
     test_results['Random Forest'] = [accuracy,precision,recall,f1]
     
     test_results = pd.DataFrame(test_results)
-    test_results.index = ['Accuracy', 'Precision','Recall','F1 Score']
-    test_results.to_csv(f'{data_output_folder}/test_scores.csv', index = False)
+    test_results['Measures'] = ['Accuracy', 'Precision','Recall','F1 Score']
+    test_results.to_csv(f'{data_output_folder}/test_scores.csv')
     
-    Extracting feature names
     feature_names = (
       X_train_df.columns.tolist()
     )
@@ -174,10 +195,12 @@ def main()
                                    impurity=False, 
                                    proportion=True)
         graph = graphviz.Source(dot_data)
-        display(graph)
+        graph.render(f'{fig_output_folder}/{i}_random_forest_tree', format = 'png', cleanup = True)
     
     #Assessing model performance of different models
     results["Random Forest"] = pd.DataFrame(scores_rf_parameterised).mean()
+    results_df = pd.DataFrame(results).T
+    results_df.to_csv(f'{data_output_folder}/cross_validation_scores.csv')
 
-    results.to_csv(f'{data_output_folder}/cross_validation_scores.csv', index = False)
-
+if __name__ == '__main__':
+    main()

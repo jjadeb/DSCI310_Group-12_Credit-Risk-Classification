@@ -7,11 +7,11 @@ from sklearn.model_selection import cross_val_score, cross_validate, train_test_
 from sklearn.pipeline import Pipeline, make_pipeline
 
 @click.command()
-@click.argument('raw_data', type=str)
+@click.argument('clean_data', type=str)
 @click.argument('output_data_folder', type=str)
 
-def main(raw_data, output_data_folder):
-    df = pd.read_csv(f'{raw_data}')
+def main(clean_data, output_data_folder):
+    df = pd.read_csv(f'{clean_data}')
     
     # Splitting the dataset into attributes and target
     X = df.drop("Credit risk", axis=1)  
@@ -43,6 +43,7 @@ def main(raw_data, output_data_folder):
         numeric_features  
         + preprocessor.named_transformers_["cat"].get_feature_names_out().tolist()
     )
+    pd.DataFrame(column_names).to_csv(f'{output_data_folder}/column_names.csv',index = False)
     
     # Applying the preprocessing
     X_train, X_test, y_train, y_test = train_test_split(X_transformed, y, test_size=0.2, random_state=42)
