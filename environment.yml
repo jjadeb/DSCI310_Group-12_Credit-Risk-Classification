@@ -16,3 +16,5 @@ dependencies:
   - graphviz==2.50.0
   - pygraphviz==1.9
   - python-graphviz==0.20.1
+  - ucimlrepo==0.0.3
+  - click==8.1.7
