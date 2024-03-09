@@ -45,6 +45,7 @@ def main()
         scores_dict["mean_cv_scores"].append(scores["test_score"].mean())
     
     results_df = pd.DataFrame(scores_dict)
+    results_df.to_csv(f'{data_output_folder}/logistic_regression_C_optimization.csv')
     
     # Extracting the best parameter
     highest_mean_cv_score_index = results_df['mean_cv_scores'].idxmax()
@@ -132,10 +133,10 @@ def main()
     
     # Creating the model with best hyperparameter and assessing scores
     rf_parameterised = RandomForestClassifier(
-                n_estimators = 250,
-                max_depth = 10,
-                n_jobs=-1,
-                random_state=123)
+            n_estimators = best_params['n_estimators'],
+            max_depth = best_params['max_depth'],
+            n_jobs=-1,
+            random_state=123)
     
     scores_rf_parameterised =cross_validate(rf_parameterised, X_train, y_train, return_train_score=True)
     
