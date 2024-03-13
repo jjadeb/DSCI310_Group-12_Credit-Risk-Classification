@@ -22,8 +22,8 @@ RUN pip install \
     ucimlrepo==0.0.3 \
     click==8.1.7
 
-
 # Copy the rest of the application's code into the container
 #COPY . .
 
-
+# Specify the default command to run
+CMD ["jupyter", "lab", "--ip=0.0.0.0", "--no-browser", "--allow-root"]
