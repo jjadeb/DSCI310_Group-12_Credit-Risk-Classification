@@ -7,6 +7,7 @@
 - [Data Description](#data-description)
 - [Report](#report)
 - [Usage](#usage)
+- [Docker](#docker)
 - [Dependencies](#dependencies)
 - [License](#license)
 - [References](#references)
@@ -48,6 +49,33 @@ and under Switch/Select Kernel choose
 "Python [conda env:credit_risk_predictor]".
 
 Next, under the "Kernel" menu click "Restart Kernel and Run All Cells...".
+
+## Docker
+
+Build and run the project using Docker with the following commands:
+
+First, ensure you have Docker installed and running on the machine. Clone this repository and navigate to the directory.
+
+Build the Docker image:
+```bash
+docker build -t yovindu/project .
+```
+
+Run the Docker container:
+```bash
+docker run -p 8888:8888 yovindu/project
+```
+
+However it is recommended to use Docker Compose. Run the following command to build and start the services defined in the `docker-compose.yml`.
+
+```bash
+docker-compose up
+```
+Stop the Docker container by running:
+
+```bash
+docker-compose down
+```
 
 ## Dependencies
 

@@ -4,5 +4,4 @@ services:
     build: .
     ports:
       - "8888:8888" 
-    volumes:
-      - .:/usr/src/app
+    image: yovindu/project:latest
