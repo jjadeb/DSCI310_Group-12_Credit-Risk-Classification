@@ -1,0 +1,137 @@
+---
+title: 'Predictive Modelling: German Credit Risk '
+author: "Shahrukh Islam Prithibi, Jade Bouchard, Sophie Yang & Yovindu Don"
+format: 
+  html: 
+      toc: true
+      toc-depth: 2
+  pdf: 
+      toc: true
+      toc-depth: 2
+bibliography: references.bib
+execute: 
+  echo: false
+  warning: false
+editor: source
+fig-cap-location: bottom
+---
+```{python}
+import pandas as pd
+from IPython.display import Markdown, display
+from tabulate import tabulate
+```
+
+
+## Summary
+
+The goal of our analysis is to classify whether someone is in a good or bad credit risk position using attributes such as `Credit History`, `Duration`, and `Residence`. Our best-performing model is a ***Random Forest model***. This model gave us an accuracy of 0.8 on unseen data, a decent result compared to the ***dummy model's*** accuracy of 0.7. We also obtained a **precision score** of 0.8, a **recall score** of 0.95, and **F1 Score** of 0.87. Our model performs decently well in terms of identifying people who are at good credit position. However, if this model is to have a hand in real-world decision-making, precision should be improved to minimize classifying low credit risks as high credit risks (false positives). In addition, more research should be done to ensure the model produces fair and equitable recommendations.
+
+
+## Introduction
+
+Understanding and predicting credit risk is crucial for banks in the finance sector. As the Journal of Applied Statistics shares “credit risk modelling, namely its component Probability of Default (PD), is very helpful in the consumer credit loan grant decision” [@journal-applied-stat]. Further, a report by McKinsey shares that “at an average commercial bank, credit-related assets produce about 40 percent of total revenues” [@mckinseycredit]. With this in mind, our data science project will develop a predictive model aimed at discerning good from bad credit risk. 
+
+Our key question: How can we predict individuals with good or bad credit risk using relevant and representative input features?
+
+The Statlog (German Credit Data) dataset, sourced from the UCI’s Machine Learning Repository [ @data], found specifically [here](https://doi.org/10.24432/C5NC77), can be used for classifying individuals as good or bad credit risks based on a variety of attributes. A cost matrix is required for evaluation, where misclassification costs are outlined. The cost matrix indicates that it is worse to classify a customer as good when they are bad, compared to classifying a customer as bad when they are good. The dataset contains 1000 instances with 20 features. Each feature has a different role, type, and demographic information, summarized as follows:
+
+- **Target Variable (Credit Risk):** *Binary*, classifies individuals as either good (= 1) or bad (= 2) credit risks
+- **Status of existing checking account (Attribute1):** *Categorical*, indicates the status of the existing checking account in 4 categories, such as the balance amount or absence of a checking account.
+- **Duration (Attribute2):** *Integer*, represents the duration of credit in months.
+- **Credit history (Attribute3):** *Categorical*, describes the credit history of individuals in 3 categories, including whether credits were paid back duly or if there were payment delays.
+- **Purpose (Attribute4):** *Categorical*, specifies the purpose of the credit in 11 categories, like for a car purchase, furniture, education, or business, etc.
+- **Credit amount (Attribute5):** *Integer*, denotes the amount of credit requested.
+- **Savings account/bonds (Attribute6):** *Categorical*, indicates the status of savings accounts or bonds in categorical brackets of DEM currency.
+- **Present employment since (Attribute7):** *Categorical*, shows the duration of present employment.
+- **Installment rate (Attribute8):** *Integer*, represents the installment rate in terms of a percentage of disposable income.
+- **Personal status and sex (Attribute9):** *Categorical*, provides information about personal status and sex.
+- **Other debtors/guarantors (Attribute10):** *Categorical*, indicates the presence of other debtors or guarantors.
+- **Present residence since (Attribute11):** *Integer*, denotes the duration of present residence.
+- **Property (Attribute12):** *Categorical*, describes the type of property owned.
+- **Age in years (Attribute13):** *Integer*, represents the age of individuals.
+- **Other installment plans (Attribute14):** *Categorical*, specifies other installment plans held by individuals.
+- **Housing (Attribute15):** *Categorical*, indicates the housing status.
+- **Number of existing credits at this bank (Attribute16):** *Integer*, denotes the number of existing credits at this bank.
+- **Job (Attribute17):** *Categorical*, describes the job status of individuals.
+- **Number of people being liable to provide maintenance for (Attribute18):** *Integer*, represents the number of dependents.
+- **Telephone (Attribute19):** *Categorical*, indicates the presence of a telephone registered under the customer's name.
+- **Foreign worker (Attribute20):** *Categorical*, specifies whether the individual is a foreign worker.
+
+## Analysis
+The project aimed to develop a predictive model to assess whether an individual represents a good or bad credit risk. To establish a baseline, a dummy model was implemented initially. Subsequently, Logistic Regression and Random Forest algorithms were employed to enhance the predictive capability. All variables in the dataset were used to fit the model. The dataset was split into training and testing sets using an 80-20 split ratio to facilitate model evaluation. Categorical variables were subjected to one-hot encoding (OHE), while continuous variables were standardized using Standard Scaler to ensure uniformity in scale across features.
+
+Hyperparameter optimization was conducted to fine-tune the models. This process involved exploring various combinations of hyperparameters to identify the optimal settings for maximizing model performance. Additionally, a 5-fold cross-validation (CV) technique was utilized to assess the robustness of the models. Cross-validation aids in estimating the model's performance on unseen data by partitioning the dataset into multiple subsets for training and testing.
+
+The performance of the models was evaluated using key metrics such as precision, recall, accuracy, and F1 scores on the test set. Precision measures the proportion of true positive predictions among all positive predictions, recall measures the proportion of true positive predictions among all actual positive instances, accuracy measures the overall correctness of predictions, and F1 score is the harmonic mean of precision and recall, providing a balanced assessment of the model's performance.
+
+By employing these methodologies, the project aimed to develop a reliable predictive model capable of accurately discerning good and bad credit risks.
+
+## Results and Discussions
+To assess the distribution of the numerical variables and whether they require scaling we plot the histogram of the numerical variables in @fig-eda. In doing this we identify that duration, credit amount and age have a right-skewedness. 
+
+::: {#fig-eda layout-nrow=3}
+
+![Duration](../img/Duration.png)
+
+![Credit Amount](../img/Credit%20amount.png)
+
+![Age](../img/Age.png)
+
+
+Histograms for numerical variables
+:::
+
+![Correlation Heatmap of numeric columns](../img/heatmap.png){#fig-heatmap width=90% style="text-align: center;"}
+
+We see from @fig-heatmap that the correlation heatmap does not display not display any high correlation between two given variables which implies that there is no strong linear relationship between them. As a result, no manipulation or adjustment of the variables are required to address issues related to multicollinearity or redundancy in the dataset.
+
+Now in @tbl-scores we see the performance of the different models on the training set and find their mean train and mean test scores from a 5-fold cross validation. 
+
+```{python}
+#| label: tbl-scores
+#| tbl-cap: Mean Train and Test scores from a 5 fold cross validation for the different models
+
+scores_table = pd.read_csv("../data/cross_validation_scores.csv")
+Markdown(scores_table.to_markdown(index = False)) 
+```
+
+Both the models are performing better than our baseline model.
+
+- **Logistic Regression:** It has moderate training and prediction times and achieves a decent accuracy on the test set, indicating reasonable performance without overfitting.
+- **Random Forest:** It takes significantly longer to train compared to logistic regression but achieves a slightly higher accuracy on the test set. However, there's a large discrepancy between the training and test scores, suggesting potential overfitting.
+
+```{python}
+#| label: tbl-measures
+#| tbl-cap: Metric Evaluation and Model Performance on unseen Test data
+
+measures_table = pd.read_csv("../data/test_scores.csv")
+Markdown(measures_table.to_markdown(index = False)) 
+```
+
+In @tbl-measures we see both the models are performing well  well on the test set, with relatively high accuracy, precision, recall, and F1 score. It correctly classifies a majority of instances while maintaining a good balance between false positives and false negatives. Here, in this instance we would want to avoid false negatives where a person at credit risk is not deemed to be at risk, and a high recall score ensures the model is performing well in avoiding false negatives. 
+
+![ROC Curve](../img/roc_plot.png){#fig-roc width=90% style="text-align:center;"}
+
+@fig-roc is a plot of our true positive rate/recall against false positive rate. For our case, a False Positive is when we predict someone to be a bad credit risk, when in reality they are a good credit risk. Therefore, we want to minimize False Positives while still maintaing a decent recall rate. The default predict-proba threshhold of 0.5 is our choice for balancing these two goals as it keeps the False Positive Rate quite low.
+
+By @fig-rf we can also see the first 3 trees of the random forest model showing which variables are significant in each tree. 
+
+::: {#fig-rf layout-nrow=3}
+
+![Tree 1](../img/0_random_forest_tree.png)
+
+![Tree 2](../img/1_random_forest_tree.png)
+
+![Tree 3](../img/2_random_forest_tree.png)
+
+
+Visualization of first 3 trees in Random Forest
+:::
+
+## Conclusion
+
+This model could potentially be used by banks to determine who they should loan money to since analyzing credit risks is important to banks [@bloomberg2024]. Even though there are potential benefits to using this logistic regression model, we should keep in mind negative impacts it could have. Using a model such as the one we created could result in un-intentional discrimination. For example, `Age` is an attribute in our data. Our model has the coefficient -0.21 for Age indicating a larger age value will have a better credit prediction, holding other variables constant. If our model was used to determine who should get a bank loan, there would be risk of age discrimination which is unethical and illegal [@bchrt].
+
+While we only explored a linear regression model and random forest model, it would be interesting to see if gradient-boosted classifiers have improved accuracy and precision. If we used more complex classifiers such as lightLGBM, we would benefit from using SHAP graphs to understand how the model is making predictions generally, and on an individual basis. In addition, research could be done on how to prevent our model from discriminating based on age, gender, etc. as sometimes simply removing attributes does not lessen discrimination.
+
+## References
