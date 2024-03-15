@@ -1,7 +1,8 @@
 version: '3.8'
 services:
   myapp:
-    build: .
+    volumes:
+      - .:/home/jovyan
     ports:
       - "8888:8888" 
     image: yovindu/project:latest

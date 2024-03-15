@@ -1,0 +1,6 @@
+project:
+  type: website
+  output-dir: reports
+
+webbsite:
+  title: German Credit Risk Predictive Model
