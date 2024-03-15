@@ -10,8 +10,6 @@ RUN conda install -y \
     pandas==2.2.1 \
     matplotlib==3.8.3 \
     seaborn==0.13.2 \
-    tabulate=0.90 \
-    ipython=8.21.0 \
     jupyterlab 
 
 RUN conda install -y --channel conda-forge pygraphviz==1.12 python-graphviz==0.20.1
