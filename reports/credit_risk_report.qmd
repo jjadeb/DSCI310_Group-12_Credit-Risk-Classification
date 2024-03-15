@@ -21,6 +21,9 @@ from IPython.display import Markdown, display
 from tabulate import tabulate
 ```
 
+\thispagestyle{empty}
+ 
+\newpage
 
 ## Summary
 
