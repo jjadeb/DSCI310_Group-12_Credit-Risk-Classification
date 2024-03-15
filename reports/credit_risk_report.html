@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.543">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Shahrukh Islam Prithibi, Jade Bouchard, Sophie Yang &amp; Yovindu Don">
+
+<title>Predictive Modelling: German Credit Risk</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="credit_risk_report_files/libs/clipboard/clipboard.min.js"></script>
+<script src="credit_risk_report_files/libs/quarto-html/quarto.js"></script>
+<script src="credit_risk_report_files/libs/quarto-html/popper.min.js"></script>
+<script src="credit_risk_report_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="credit_risk_report_files/libs/quarto-html/anchor.min.js"></script>
+<link href="credit_risk_report_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="credit_risk_report_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="credit_risk_report_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="credit_risk_report_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="credit_risk_report_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body>
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul class="collapse">
+  <li><a href="#summary" id="toc-summary" class="nav-link active" data-scroll-target="#summary">Summary</a></li>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#analysis" id="toc-analysis" class="nav-link" data-scroll-target="#analysis">Analysis</a></li>
+  <li><a href="#results-and-discussions" id="toc-results-and-discussions" class="nav-link" data-scroll-target="#results-and-discussions">Results and Discussions</a></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
+  </ul>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="..\credit_risk_report.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
+</div>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Predictive Modelling: German Credit Risk</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Shahrukh Islam Prithibi, Jade Bouchard, Sophie Yang &amp; Yovindu Don </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="summary" class="level2">
+<h2 class="anchored" data-anchor-id="summary">Summary</h2>
+<p>The goal of our analysis is to classify whether someone is in a good or bad credit risk position using attributes such as <code>Credit History</code>, <code>Duration</code>, and <code>Residence</code>. Our best-performing model is a <strong><em>Random Forest model</em></strong> which gave us a test score of 0.756 on unseen data, a decent result compared to the <strong><em>dummy model’s</em></strong> score of 0.699. We also obtained a <strong>accuracy score</strong> of 0.765 <strong>precision score</strong> of 0.79, a <strong>recall score</strong> of 0.908, and <strong>F1 Score</strong> of 0.845. Our model performs decently well in terms of identifying people who are at good credit position. However, if this model is to have a hand in real-world decision-making, precision should be improved to minimize classifying low credit risks as high credit risks (false positives). In addition, more research should be done to ensure the model produces fair and equitable recommendations.</p>
+</section>
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<p>Understanding and predicting credit risk is crucial for banks in the finance sector. As the Journal of Applied Statistics shares “credit risk modelling, namely its component Probability of Default (PD), is very helpful in the consumer credit loan grant decision” <span class="citation" data-cites="journal-applied-stat">(<a href="#ref-journal-applied-stat" role="doc-biblioref">Eliana Costa e Silva and Faria 2020</a>)</span>. Further, a report by McKinsey shares that “at an average commercial bank, credit-related assets produce about 40 percent of total revenues” <span class="citation" data-cites="mckinseycredit">(<a href="#ref-mckinseycredit" role="doc-biblioref">Goraieb, Kumar, and Pepanides, n.d.</a>)</span>. With this in mind, our data science project will develop a predictive model aimed at discerning good from bad credit risk.</p>
+<p>Our key question: How can we predict individuals with good or bad credit risk using relevant and representative input features?</p>
+<p>The Statlog (German Credit Data) dataset, sourced from the UCI’s Machine Learning Repository <span class="citation" data-cites="data">(<a href="#ref-data" role="doc-biblioref">Hofmann 1994</a>)</span>, found specifically <a href="https://doi.org/10.24432/C5NC77">here</a>, can be used for classifying individuals as good or bad credit risks based on a variety of attributes. A cost matrix is required for evaluation, where misclassification costs are outlined. The cost matrix indicates that it is worse to classify a customer as good when they are bad, compared to classifying a customer as bad when they are good. The dataset contains 1000 instances with 20 features. Each feature has a different role, type, and demographic information, summarized as follows:</p>
+<ul>
+<li><strong>Target Variable (Credit Risk):</strong> <em>Binary</em>, classifies individuals as either good (= 1) or bad (= 2) credit risks</li>
+<li><strong>Status of existing checking account (Attribute1):</strong> <em>Categorical</em>, indicates the status of the existing checking account in 4 categories, such as the balance amount or absence of a checking account.</li>
+<li><strong>Duration (Attribute2):</strong> <em>Integer</em>, represents the duration of credit in months.</li>
+<li><strong>Credit history (Attribute3):</strong> <em>Categorical</em>, describes the credit history of individuals in 3 categories, including whether credits were paid back duly or if there were payment delays.</li>
+<li><strong>Purpose (Attribute4):</strong> <em>Categorical</em>, specifies the purpose of the credit in 11 categories, like for a car purchase, furniture, education, or business, etc.</li>
+<li><strong>Credit amount (Attribute5):</strong> <em>Integer</em>, denotes the amount of credit requested.</li>
+<li><strong>Savings account/bonds (Attribute6):</strong> <em>Categorical</em>, indicates the status of savings accounts or bonds in categorical brackets of DEM currency.</li>
+<li><strong>Present employment since (Attribute7):</strong> <em>Categorical</em>, shows the duration of present employment.</li>
+<li><strong>Installment rate (Attribute8):</strong> <em>Integer</em>, represents the installment rate in terms of a percentage of disposable income.</li>
+<li><strong>Personal status and sex (Attribute9):</strong> <em>Categorical</em>, provides information about personal status and sex.</li>
+<li><strong>Other debtors/guarantors (Attribute10):</strong> <em>Categorical</em>, indicates the presence of other debtors or guarantors.</li>
+<li><strong>Present residence since (Attribute11):</strong> <em>Integer</em>, denotes the duration of present residence.</li>
+<li><strong>Property (Attribute12):</strong> <em>Categorical</em>, describes the type of property owned.</li>
+<li><strong>Age in years (Attribute13):</strong> <em>Integer</em>, represents the age of individuals.</li>
+<li><strong>Other installment plans (Attribute14):</strong> <em>Categorical</em>, specifies other installment plans held by individuals.</li>
+<li><strong>Housing (Attribute15):</strong> <em>Categorical</em>, indicates the housing status.</li>
+<li><strong>Number of existing credits at this bank (Attribute16):</strong> <em>Integer</em>, denotes the number of existing credits at this bank.</li>
+<li><strong>Job (Attribute17):</strong> <em>Categorical</em>, describes the job status of individuals.</li>
+<li><strong>Number of people being liable to provide maintenance for (Attribute18):</strong> <em>Integer</em>, represents the number of dependents.</li>
+<li><strong>Telephone (Attribute19):</strong> <em>Categorical</em>, indicates the presence of a telephone registered under the customer’s name.</li>
+<li><strong>Foreign worker (Attribute20):</strong> <em>Categorical</em>, specifies whether the individual is a foreign worker.</li>
+</ul>
+</section>
+<section id="analysis" class="level2">
+<h2 class="anchored" data-anchor-id="analysis">Analysis</h2>
+<p>The project aimed to develop a predictive model to assess whether an individual represents a good or bad credit risk. To establish a baseline, a dummy model was implemented initially. Subsequently, Logistic Regression and Random Forest algorithms were employed to enhance the predictive capability. All variables in the dataset were used to fit the model. The dataset was split into training and testing sets using an 80-20 split ratio to facilitate model evaluation. Categorical variables were subjected to one-hot encoding (OHE), while continuous variables were standardized using Standard Scaler to ensure uniformity in scale across features.</p>
+<p>Hyperparameter optimization was conducted to fine-tune the models. This process involved exploring various combinations of hyperparameters to identify the optimal settings for maximizing model performance. Additionally, a 5-fold cross-validation (CV) technique was utilized to assess the robustness of the models. Cross-validation aids in estimating the model’s performance on unseen data by partitioning the dataset into multiple subsets for training and testing.</p>
+<p>The performance of the models was evaluated using key metrics such as precision, recall, accuracy, and F1 scores on the test set. Precision measures the proportion of true positive predictions among all positive predictions, recall measures the proportion of true positive predictions among all actual positive instances, accuracy measures the overall correctness of predictions, and F1 score is the harmonic mean of precision and recall, providing a balanced assessment of the model’s performance.</p>
+<p>By employing these methodologies, the project aimed to develop a reliable predictive model capable of accurately discerning good and bad credit risks.</p>
+</section>
+<section id="results-and-discussions" class="level2">
+<h2 class="anchored" data-anchor-id="results-and-discussions">Results and Discussions</h2>
+<p>To assess the distribution of the numerical variables and whether they require scaling we plot the histogram of the numerical variables in <a href="#fig-eda" class="quarto-xref">Figure&nbsp;1</a>. In doing this we identify that duration, credit amount and age have a right-skewedness.</p>
+<div id="fig-eda" class="quarto-layout-panel">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-eda-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../img/Duration.png" class="img-fluid figure-img" style="width:80.0%"></p>
+<figcaption>Duration</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../img/Credit%20amount.png" class="img-fluid figure-img" style="width:80.0%"></p>
+<figcaption>Credit Amount</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../img/Age.png" class="img-fluid figure-img" style="width:80.0%"></p>
+<figcaption>Age</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-eda-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Histograms for numerical variables
+</figcaption>
+</figure>
+</div>
+<div id="fig-heatmap" class="quarto-figure quarto-figure-center quarto-float anchored" style="text-align: center;">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-heatmap-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../img/heatmap.png" class="img-fluid figure-img" style="text-align: center;;width:90.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-heatmap-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: Correlation Heatmap of numeric columns
+</figcaption>
+</figure>
+</div>
+<p>We see from <a href="#fig-heatmap" class="quarto-xref">Figure&nbsp;2</a> that the correlation heatmap does not display not display any high correlation between two given variables which implies that there is no strong linear relationship between them. As a result, no manipulation or adjustment of the variables are required to address issues related to multicollinearity or redundancy in the dataset.</p>
+<p>Now in <a href="#tbl-scores" class="quarto-xref">Table&nbsp;1</a> we see the performance of the different models on the training set and find their mean train and mean test scores from a 5-fold cross validation.</p>
+<div class="cell" data-execution_count="4">
+<div id="tbl-scores" class="cell quarto-float anchored" data-execution_count="4">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-scores-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;1: Mean Train and Test scores from a 5 fold cross validation for the different models
+</figcaption>
+<div aria-describedby="tbl-scores-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="44">
+<table class="do-not-create-environment cell table table-sm table-striped small">
+<colgroup>
+<col style="width: 27%">
+<col style="width: 16%">
+<col style="width: 18%">
+<col style="width: 18%">
+<col style="width: 19%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">model</th>
+<th style="text-align: right;">fit_time</th>
+<th style="text-align: right;">score_time</th>
+<th style="text-align: right;">test_score</th>
+<th style="text-align: right;">train_score</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Dummy</td>
+<td style="text-align: right;">0.000248957</td>
+<td style="text-align: right;">0.000248384</td>
+<td style="text-align: right;">0.69875</td>
+<td style="text-align: right;">0.69875</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Logistic Regression</td>
+<td style="text-align: right;">0.00364494</td>
+<td style="text-align: right;">0.000520897</td>
+<td style="text-align: right;">0.7425</td>
+<td style="text-align: right;">0.783125</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Random Forest</td>
+<td style="text-align: right;">0.0681482</td>
+<td style="text-align: right;">0.012503</td>
+<td style="text-align: right;">0.75625</td>
+<td style="text-align: right;">1</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</figure>
+</div>
+</div>
+<p>Both the models are performing better than our baseline model.</p>
+<ul>
+<li><strong>Logistic Regression:</strong> It has moderate training and prediction times and achieves a decent fit score of 0.742 on the test set, indicating reasonable performance without overfitting.</li>
+<li><strong>Random Forest:</strong> It takes significantly longer to train compared to logistic regression but achieves a slightly higher fit score on the test set. However, there’s a large discrepancy between the training (1.0) and test scores(0.75625), suggesting potential overfitting.</li>
+</ul>
+<div class="cell" data-execution_count="5">
+<div id="tbl-measures" class="cell quarto-float anchored" data-execution_count="5">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-measures-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;2: Metric Evaluation and Model Performance on unseen Test data
+</figcaption>
+<div aria-describedby="tbl-measures-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="45">
+<table class="do-not-create-environment cell table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Measures</th>
+<th style="text-align: right;">Logistic Regression</th>
+<th style="text-align: right;">Random Forest</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Accuracy</td>
+<td style="text-align: right;">0.79</td>
+<td style="text-align: right;">0.765</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Precision</td>
+<td style="text-align: right;">0.811321</td>
+<td style="text-align: right;">0.790123</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Recall</td>
+<td style="text-align: right;">0.914894</td>
+<td style="text-align: right;">0.907801</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">F1 Score</td>
+<td style="text-align: right;">0.86</td>
+<td style="text-align: right;">0.844884</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</figure>
+</div>
+</div>
+<p>In <a href="#tbl-measures" class="quarto-xref">Table&nbsp;2</a> we see both the models are performing well on the test set, with relatively high accuracy, precision, recall, and F1 score. It correctly classifies a majority of instances while maintaining a good balance between false positives and false negatives. Here, in this instance we would want to avoid false negatives where a person at credit risk is not deemed to be at risk, and a high recall score ensures the model is performing well in avoiding false negatives.</p>
+<div id="fig-roc" class="quarto-figure quarto-figure-center quarto-float anchored" style="text-align:center;">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-roc-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../img/roc_plot.png" class="img-fluid figure-img" style="text-align:center;;width:66.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-roc-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3: ROC Curve
+</figcaption>
+</figure>
+</div>
+<p><a href="#fig-roc" class="quarto-xref">Figure&nbsp;3</a> is a plot of our true positive rate/recall against false positive rate. For our case, a False Positive is when we predict someone to be a bad credit risk, when in reality they are a good credit risk. Therefore, we want to minimize False Positives while still maintaing a decent recall rate. The default predict-proba threshhold of 0.5 is our choice for balancing these two goals as it keeps the False Positive Rate quite low.</p>
+<p>By <a href="#fig-rf" class="quarto-xref">Figure&nbsp;4</a> we can also see the first 3 trees of the random forest model showing which variables are significant in each tree.</p>
+<div id="fig-rf" class="quarto-layout-panel">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-rf-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../img/0_random_forest_tree.png" class="img-fluid figure-img" style="width:70.0%"></p>
+<figcaption>Tree 1</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../img/1_random_forest_tree.png" class="img-fluid figure-img" style="width:70.0%"></p>
+<figcaption>Tree 2</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../img/2_random_forest_tree.png" class="img-fluid figure-img" style="width:70.0%"></p>
+<figcaption>Tree 3</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-rf-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4: Visualization of first 3 trees in Random Forest
+</figcaption>
+</figure>
+</div>
+</section>
+<section id="conclusion" class="level2">
+<h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
+<p>This model could potentially be used by banks to determine who they should loan money to since analyzing credit risks is important to banks <span class="citation" data-cites="bloomberg2024">(<a href="#ref-bloomberg2024" role="doc-biblioref">Vossos and Dobby 2024</a>)</span>. Even though there are potential benefits to using this logistic regression model, we should keep in mind negative impacts it could have. Using a model such as the one we created could result in un-intentional discrimination. For example, <code>Age</code> is an attribute in our data. Our model has the coefficient -0.21 for Age indicating a larger age value will have a better credit prediction, holding other variables constant. If our model was used to determine who should get a bank loan, there would be risk of age discrimination which is unethical and illegal <span class="citation" data-cites="bchrt">(<a href="#ref-bchrt" role="doc-biblioref"><span>“Personal Characteristics, Grounds of Discrimination Protected in the BC Human Rights Code”</span> 2023</a>)</span>.</p>
+<p>While we only explored a linear regression model and random forest model, it would be interesting to see if gradient-boosted classifiers have improved accuracy and precision. If we used more complex classifiers such as lightLGBM, we would benefit from using SHAP graphs to understand how the model is making predictions generally, and on an individual basis. In addition, research could be done on how to prevent our model from discriminating based on age, gender, etc. as sometimes simply removing attributes does not lessen discrimination.</p>
+</section>
+<section id="references" class="level2 unnumbered">
+
+
+</section>
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-journal-applied-stat" class="csl-entry" role="listitem">
+Eliana Costa e Silva, Aldina Correia, Isabel Cristina Lopes, and Susana Faria. 2020. <span>“A Logistic Regression Model for Consumer Default Risk.”</span> <em>Journal of Applied Statistics</em> 47 (13-15): = 2879–2894. <a href="https://doi.org/10.1080/02664763.2020.1759030">https://doi.org/10.1080/02664763.2020.1759030</a>.
+</div>
+<div id="ref-mckinseycredit" class="csl-entry" role="listitem">
+Goraieb, E., S. Kumar, and T. Pepanides. n.d. <span>“Credit Risk | Risk &amp; Resilience | McKinsey &amp; Company.”</span> McKinsey &amp; Company. <a href="https://www.mckinsey.com/capabilities/risk-and-resilience/how-we-help-clients/credit-risk">https://www.mckinsey.com/capabilities/risk-and-resilience/how-we-help-clients/credit-risk</a>.
+</div>
+<div id="ref-data" class="csl-entry" role="listitem">
+Hofmann, Hans. 1994. <span>“Statlog (German Credit Data).”</span> UCI Machine Learning Repository. <a href="https://doi.org/10.24432/C5NC77">https://doi.org/10.24432/C5NC77</a>.
+</div>
+<div id="ref-bchrt" class="csl-entry" role="listitem">
+<span>“Personal Characteristics, Grounds of Discrimination Protected in the BC Human Rights Code.”</span> 2023. BC Human Rights Tribunal. 2023. <a href="https://www.bchrt.bc.ca/human-rights-duties/personal-characteristics/">https://www.bchrt.bc.ca/human-rights-duties/personal-characteristics/</a>.
+</div>
+<div id="ref-bloomberg2024" class="csl-entry" role="listitem">
+Vossos, Tasos, and Christine Dobby. 2024. <span>“Wall Street to Follow Canada’s Hot Capital-Relief Trade,”</span> February. <a href="https://www.bloomberg.com/news/articles/2024-02-22/wall-street-to-follow-canada-s-hot-capital-relief-trade">https://www.bloomberg.com/news/articles/2024-02-22/wall-street-to-follow-canada-s-hot-capital-relief-trade</a>.
+</div>
+</div></section></div></main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
