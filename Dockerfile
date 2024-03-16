@@ -2,6 +2,28 @@
 # Use the Python image as the base image
 FROM quay.io/jupyter/minimal-notebook:notebook-7.0.6
 
+USER root
+
+#ENV PATH /usr/local/bin/$PATH
+
+
+
+#RUN curl -LO https://quarto.org/download/latest/quarto-linux-amd64.deb
+#RUN apt-get quarto-linux-amd64.deb
+
+RUN apt-get update
+# RUN dpkg --add-architecture amd64
+# RUN apt-get install -y gdebi-core
+# RUN curl -LO https://quarto.org/download/latest/quarto-linux-amd64.deb
+# RUN gdebi --non-interactive quarto-linux-amd64.deb
+
+RUN apt-get install -y --no-install-recommends \
+    pandoc \
+    pandoc-citeproc \
+    curl \
+    gdebi-core \
+    && rm -rf /var/lib/apt/lists/*
+
 # Install the Python packages 
 RUN conda install -y --channel conda-forge \
     scipy==1.12.0 \
@@ -21,6 +43,10 @@ RUN pip install \
     graphviz==0.20.1 \
     ucimlrepo==0.0.3 \
     click==8.1.7
+
+
+RUN curl -LO https://quarto.org/download/latest/quarto-linux-arm64.deb
+RUN gdebi --non-interactive quarto-linux-arm64.deb
 
 # Specify the default command to run
 CMD ["jupyter", "lab", "--ip=0.0.0.0", "--no-browser", "--allow-root"]
