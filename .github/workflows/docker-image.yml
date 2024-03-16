@@ -28,4 +28,4 @@ jobs:
         file: ./Dockerfile
         push: true
         tags: yovindu/project:latest
-        platforms: linux/arm64  # Ch
+        platforms: linux/arm64 
