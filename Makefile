@@ -87,6 +87,7 @@ reports/credit_risk_report.pdf: reports/credit_risk_report.qmd edav prep model
 	quarto render reports/credit_risk_report.qmd --to pdf
 
 # Clean 
+
 clean-dats:
 	rm -f data/german.csv
 
@@ -102,24 +103,9 @@ clean-edav:
 		img/residence.png \
 		img/heatmap.png
 
-clean-prep: rm -f data/x_test.csv \
-		data/x_train.csv \
-		data/y_test.csv \
-		data/y_train.csv \
-		data/column_names.csv
+clean-prep:
 
-clean-model: rm -f data/cross_validation_scores.csv \
-	data/linear-reg_coefficients.csv \
-	data/logistic_regression_C_optimization.csv \
-	data/test_scores.csv \
-	img/0_random_forest_tree.png \
-	img/1_random_forest_tree.png \
-	img/2_random_forest_tree.png \
-	img/roc_plot.png
+clean-model: 
 
-clean-all: clean-dats \
-	clean-edav \
-	clean-prep \
-	clean-model \
-	rm -f reports/credit_risk_report.html \
-	rm -f reports/credit_risk_report.pdf
+clean-all: clean-dats clean-edav clean-prep clean-model
+	rm -f reports/credit_risk_report.html reports/credit_risk_report.pdf
