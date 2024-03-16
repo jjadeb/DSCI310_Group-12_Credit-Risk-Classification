@@ -36,8 +36,8 @@ RUN pip install \
     click==8.1.7
 
 
-RUN curl -LO https://quarto.org/download/latest/quarto-linux-arm64.deb
-RUN gdebi --non-interactive quarto-linux-arm64.deb
+RUN curl -LO https://quarto.org/download/latest/quarto-linux-amd64.deb
+RUN gdebi --non-interactive quarto-linux-amd64.deb
 
 # Specify the default command to run
 CMD ["jupyter", "lab", "--ip=0.0.0.0", "--no-browser", "--allow-root"]
