@@ -7,8 +7,6 @@ on:
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
-    env:
-      DOCKER_TARGET_PLATFROM: linux/arm/v7
     
 
     steps:
