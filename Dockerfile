@@ -4,18 +4,8 @@ FROM quay.io/jupyter/minimal-notebook:notebook-7.0.6
 
 USER root
 
-#ENV PATH /usr/local/bin/$PATH
-
-
-
-#RUN curl -LO https://quarto.org/download/latest/quarto-linux-amd64.deb
-#RUN apt-get quarto-linux-amd64.deb
 
 RUN apt-get update
-# RUN dpkg --add-architecture amd64
-# RUN apt-get install -y gdebi-core
-# RUN curl -LO https://quarto.org/download/latest/quarto-linux-amd64.deb
-# RUN gdebi --non-interactive quarto-linux-amd64.deb
 
 RUN apt-get install -y --no-install-recommends \
     pandoc \
