@@ -63,18 +63,7 @@ docker build -t yovindu/project .
 
 Run the Docker container:
 ```bash
-docker run -p 8888:8888 yovindu/project
-```
-
-However it is recommended to use Docker Compose. Run the following command to build and start the services defined in the `docker-compose.yml`.
-
-```bash
-docker-compose up
-```
-Stop the Docker container by running:
-
-```bash
-docker-compose down
+docker run -it --rm -p 8888:8888 -v "${PWD}":/home/jovyan yovindu/project
 ```
 
 ## Dependencies
