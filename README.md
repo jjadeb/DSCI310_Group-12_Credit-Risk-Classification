@@ -28,27 +28,6 @@ The Statlog (German Credit Data) dataset, sourced from [this UCI’s Machine Lea
 The final report can be found
 [here](https://github.com/DSCI-310-2024/DSCI310_Project_Group_12/blob/main/reports/credit_risk_analysis.ipynb)
 
-## Usage
-
-First time running the project,
-run the following from the root of this repository:
-
-``` bash
-conda env create --file environment.yml
-```
-
-To run the analysis,
-run the following from the root of this repository:
-
-``` bash
-jupyter lab 
-```
-
-Open `reports/credit_risk_analysis.ipynb` in Jupyter Lab
-and under Switch/Select Kernel choose 
-"Python [conda env:credit_risk_predictor]".
-
-Next, under the "Kernel" menu click "Restart Kernel and Run All Cells...".
 
 ## Docker
 
@@ -76,7 +55,7 @@ Open a terminal at the project root in the IDE. Use command `make clean-all` to 
 
 - `conda` (version 23.9.0 or higher)
 - `nb_conda_kernels` (version 2.3.1 or higher)
-- Python and packages listed in [`environment.yml`](environment.yml)
+- Python and packages listed in [`Dockerfile`](Dockerfile)
 
 ## License
 
