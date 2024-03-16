@@ -32,7 +32,8 @@ The final report can be found
 
 Build and run the project using Docker with the following commands:
 
-First, ensure you have Docker installed and running on the machine. Clone this repository and navigate to the directory.
+First, ensure you have Docker installed and running on the machine. Clone this repository and navigate to the directory. One method of running the docker container is the following:
+
 Build the Docker image:
 ```bash
 docker build -t yovindu/project .
@@ -43,13 +44,17 @@ Run the Docker container:
 docker run -it --rm -p 8888:8888 -v "${PWD}":/home/jovyan yovindu/project
 ```
 
-However it is recommended to use Docker Compose. Run the following command to build and start the services defined in the docker-compose.yml.
+However, it is recommended to use Docker Compose instead of the above two commands. Run the following commands to build and start the services defined in the docker-compose.yml.
 
-```bash docker-compose up```
+```bash 
+docker-compose up
+```
 
 Stop the Docker container by running:
 
-```bash docker-compose down```
+```
+bash docker-compose down
+```
 
 (Below instructions copied form this [repository](https://github.com/ttimbers/breast_cancer_predictor_py?tab=readme-ov-file#working-with-the-project-in-the-container-using-jupyter-lab))
 
