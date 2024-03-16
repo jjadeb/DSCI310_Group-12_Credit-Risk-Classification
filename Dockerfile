@@ -4,7 +4,7 @@ FROM quay.io/jupyter/minimal-notebook:notebook-7.0.6
 
 USER root
 
-
+### Some code borrowed from the following website in order to get quarto working: https://www.r-bloggers.com/2022/07/how-to-set-up-quarto-with-docker-part-1-static-content/
 RUN apt-get update
 
 RUN apt-get install -y --no-install-recommends \
