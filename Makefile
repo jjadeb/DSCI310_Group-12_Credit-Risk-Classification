@@ -103,13 +103,15 @@ clean-edav:
 		img/residence.png \
 		img/heatmap.png
 
-clean-prep: rm -f data/x_test.csv \
+clean-prep: 
+	rm -f data/x_test.csv \
 		data/x_train.csv \
 		data/y_test.csv \
 		data/y_train.csv \
 		data/column_names.csv
 
-clean-model: rm -f data/cross_validation_scores.csv \
+clean-model: 
+	rm -f data/cross_validation_scores.csv \
 	data/linear-reg_coefficients.csv \
 	data/logistic_regression_C_optimization.csv \
 	data/test_scores.csv \
