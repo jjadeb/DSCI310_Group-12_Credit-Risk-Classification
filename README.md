@@ -26,7 +26,7 @@ The Statlog (German Credit Data) dataset, sourced from [this UCI’s Machine Lea
 
 ## Report
 The final report can be found
-[here](https://github.com/DSCI-310-2024/DSCI310_Project_Group_12/blob/main/reports/credit_risk_analysis.ipynb)
+[here](https://dsci-310-2024.github.io/DSCI310_Group-12_Credit-Risk-Classification/reports/credit_risk_report.html)
 
 
 ## Docker
@@ -53,9 +53,7 @@ Open a terminal at the project root in the IDE. Use command `make clean-all` to 
 
 ## Dependencies
 
-- `conda` (version 23.9.0 or higher)
-- `nb_conda_kernels` (version 2.3.1 or higher)
-- Python and packages listed in [`Dockerfile`](Dockerfile)
+Docker is a container solution used to manage the software dependencies for this project. The Docker image used for this project is based on the quay.io/jupyter/scipy-notebook:2024-02-24 image. Additional dependencies are specified int the [Dockerfile](Dockerfile).
 
 ## License
 
