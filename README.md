@@ -6,7 +6,6 @@
 - [About](#about)
 - [Data Description](#data-description)
 - [Report](#report)
-- [Usage](#usage)
 - [Docker](#docker)
 - [Dependencies](#dependencies)
 - [License](#license)
