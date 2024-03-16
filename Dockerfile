@@ -40,4 +40,4 @@ RUN curl -LO https://quarto.org/download/latest/quarto-linux-arm64.deb
 RUN gdebi --non-interactive quarto-linux-arm64.deb
 
 # Specify the default command to run
-CMD ["jupyter", "lab", "--ip=0.0.0.0", "--no-browser", "--allow-root"]
+CMD ["jupyter", "lab", "--ip=0.0.0.0", "--no-browser", "--allow-root"] 
