@@ -45,10 +45,11 @@ docker run -it --rm -p 8888:8888 -v "${PWD}":/home/jovyan yovindu/project
 
 However it is recommended to use Docker Compose. Run the following command to build and start the services defined in the docker-compose.yml.
 
-```docker-compose up```
+```bash docker-compose up```
+
 Stop the Docker container by running:
 
-```docker-compose down```
+```bash docker-compose down```
 
 (Below instructions copied form this [repository](https://github.com/ttimbers/breast_cancer_predictor_py?tab=readme-ov-file#working-with-the-project-in-the-container-using-jupyter-lab))
 
