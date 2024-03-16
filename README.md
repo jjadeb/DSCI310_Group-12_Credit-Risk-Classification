@@ -65,6 +65,7 @@ Run the Docker container:
 docker run -it --rm -p 8888:8888 -v "${PWD}":/home/jovyan yovindu/project
 ```
 (Below instructions copied form this [repository](https://github.com/ttimbers/breast_cancer_predictor_py?tab=readme-ov-file#working-with-the-project-in-the-container-using-jupyter-lab))
+
 In the terminal, look for a URL that starts with http://127.0.0.1:8888/lab?token= . Copy and paste that URL into your browser.
 
 You should now see the Jupyter lab IDE in your browser, with all the project files visible in the file browser pane on the left side of the screen.
