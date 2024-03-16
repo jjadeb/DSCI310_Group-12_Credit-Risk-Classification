@@ -55,11 +55,11 @@ Next, under the "Kernel" menu click "Restart Kernel and Run All Cells...".
 Build and run the project using Docker with the following commands:
 
 First, ensure you have Docker installed and running on the machine. Clone this repository and navigate to the directory.
-
 Build the Docker image:
 ```bash
 docker build -t yovindu/project .
 ```
+
 Run the Docker container:
 ```bash
 docker run -it --rm -p 8888:8888 -v "${PWD}":/home/jovyan yovindu/project
