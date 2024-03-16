@@ -7,7 +7,9 @@
 
 all: reports/credit_risk_report.html reports/credit_risk_report.pdf
 
-# PHONY targets: dats, edav, prep, model
+# Define PHONY targets: dats, edav, prep, model
+.PHONY: dats edav prep model
+
 
 # 1) Download the Data
 # Input NA
@@ -35,16 +37,9 @@ edav: data/german_clean.csv \
 data/german_clean.csv img/age.png img/credit_amount.png img/credit_risk.png img/duration.png img/existing_credits.png img/liable_people.png img/rate.png img/residence.png img/heatmap.png: data/german.csv scripts/cleaning_and_eda.py
 	python scripts/cleaning_and_eda.py \
 		data/german.csv \
-		data/german_clean.csv \
-		img/age.png \
-		img/credit_amount.png \
-		img/credit_risk.png \
-		img/duration.png \
-		img/existing_credits.png \
-		img/liable_people.png \
-		img/rate.png \
-		img/residence.png \
-		img/heatmap.png
+		img \
+		data/german_clean.csv
+		
 
 # 3) Data Preprocessing 
 # Input is german_clean.csv
@@ -58,11 +53,7 @@ prep: data/x_test.csv \
 data/x_test.csv data/x_train.csv data/y_test.csv data/y_train.csv data/column_names.csv: scripts/preprocessing.py  
 	python scripts/preprocessing.py \
 		data/german_clean.csv \
-		data/x_test.csv \
-		data/x_train.csv \
-		data/y_test.csv \
-		data/y_train.csv \
-		data/column_names.csv
+		data
 
 # 4) Data Modelling
 # Input is x train & test, y train & test, column_names
@@ -78,28 +69,21 @@ model: data/cross_validation_scores.csv \
 
 data/cross_validation_scores.csv data/linear-reg_coefficients.csv data/logistic_regression_C_optimization.csv data/test_scores.csv img/0_random_forest_tree.png img/1_random_forest_tree.png img/2_random_forest_tree.png img/roc_plot.png: scripts/model.py
 	python scripts/model.py \
-	data/x_test.csv \
-	data/x_train.csv \
-	data/y_test.csv \
-	data/y_train.csv \
 	data/column_names.csv \
-	data/cross_validation_scores.csv \
-	data/linear-reg_coefficients.csv \
-	data/logistic_regression_C_optimization.csv \
-	data/test_scores.csv \
-	img/0_random_forest_tree.png \
-	img/1_random_forest_tree.png \
-	img/2_random_forest_tree.png \
-	img/roc_plot.png
-
+	data/x_train.csv \
+	data/y_train.csv \
+	data/x_test.csv \
+	data/y_test.csv \
+	img \
+	data
 
 # 5) Write and Render Quarto report in HTML and PDF
 # Input is credit_risk_report.qmd
 # Output is credit_risk_report.html, credit_risk_report.pdf
-reports/credit_risk_report.html: reports/credit_risk_report.qmd
+reports/credit_risk_report.html: reports/credit_risk_report.qmd edav prep model
 	quarto render reports/credit_risk_report.qmd --to html
 
-reports/credit_risk_report.pdf: reports/credit_risk_report.qmd
+reports/credit_risk_report.pdf: reports/credit_risk_report.qmd edav prep model
 	quarto render reports/credit_risk_report.qmd --to pdf
 
 # Clean 
