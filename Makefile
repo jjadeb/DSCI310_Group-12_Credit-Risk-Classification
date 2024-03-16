@@ -94,18 +94,30 @@ clean-dats:
 clean-edav: 
 	rm -f data/german_clean.csv \
 		img/age.png \
-		img/credit_amount.png \
-		img/credit_risk.png \
+		"img/Credit amount.png" \
+		"img/Credit risk.png" \
 		img/duration.png \
-		img/existing_credits.png \
-		img/liable_people.png \
+		"img/Existing credits.png" \
+		"img/Liable people.png" \
 		img/rate.png \
 		img/residence.png \
 		img/heatmap.png
 
-clean-prep:
+clean-prep: rm -f data/x_test.csv \
+		data/x_train.csv \
+		data/y_test.csv \
+		data/y_train.csv \
+		data/column_names.csv
 
-clean-model: 
+clean-model: rm -f data/cross_validation_scores.csv \
+	data/linear-reg_coefficients.csv \
+	data/logistic_regression_C_optimization.csv \
+	data/test_scores.csv \
+	img/0_random_forest_tree.png \
+	img/1_random_forest_tree.png \
+	img/2_random_forest_tree.png \
+	img/roc_plot.png
 
 clean-all: clean-dats clean-edav clean-prep clean-model
 	rm -f reports/credit_risk_report.html reports/credit_risk_report.pdf
+	rm -r reports/credit_risk_report_files
