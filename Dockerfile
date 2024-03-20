@@ -28,7 +28,9 @@ RUN conda install -y --channel conda-forge \
     pygraphviz==1.12 \
     python-graphviz==0.20.1 \
     tabulate==0.9.0 \
-    ipython==8.22.2
+    ipython==8.22.2 \
+    pytest=8.1.1
+
 
 RUN pip install \
     graphviz==0.20.1 \
