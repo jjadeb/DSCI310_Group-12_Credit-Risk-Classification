@@ -35,9 +35,9 @@ def test_map_labels_to_binary_numpy_array():
     y = np.array([1, 2, 1, 2, 2], dtype=np.int32)
     y_mapped = map_labels_to_binary(y)
     expected_output = np.array([0, 1, 0, 1, 1], dtype=np.int32)
-    assert np.array_equal(y_mapped, expected_output), "Function should handle numpy arrays"
+    assert np.array_equal(y_mapped, expected_output), "Should handle numpy arrays"
 
 def test_map_labels_to_binary_large_array():
     y = np.random.choice([1, 2], size=10000)
     y_mapped = map_labels_to_binary(y)
-    assert len(y_mapped) == 10000, "Function should handle large arrays"
+    assert len(y_mapped) == 10000, "Should handle large arrays"
