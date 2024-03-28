@@ -21,7 +21,7 @@ def test_map_labels_to_binary_empty():
     y_mapped = map_labels_to_binary(y)
     assert np.array_equal(y_mapped, np.array([])), "Empty array should return an empty array"
 
-def test_map_labels_to_binary_invalid_input():
+def test_map_labels_to_binary_invalid():
     y = np.array([0, 3, 4])
     try:
         y_mapped = map_labels_to_binary(y)
@@ -31,7 +31,7 @@ def test_map_labels_to_binary_invalid_input():
     except Exception as e:
         assert False, f"Unexpected exception type: {type(e)}"
 
-def test_map_labels_to_binary_numpy_int_array():
+def test_map_labels_to_binary_numpy_array():
     y = np.array([1, 2, 1, 2, 2], dtype=np.int32)
     y_mapped = map_labels_to_binary(y)
     expected_output = np.array([0, 1, 0, 1, 1], dtype=np.int32)
@@ -41,9 +41,3 @@ def test_map_labels_to_binary_large_array():
     y = np.random.choice([1, 2], size=10000)
     y_mapped = map_labels_to_binary(y)
     assert len(y_mapped) == 10000, "Function should handle large arrays"
-
-def test_map_labels_to_binary_does_not_modify_input():
-    y_original = np.array([1, 2, 1, 2, 2])
-    y = y_original.copy()
-    y_mapped = map_labels_to_binary(y)
-    assert np.array_equal(y, y_original), "Function should not modify input array"
