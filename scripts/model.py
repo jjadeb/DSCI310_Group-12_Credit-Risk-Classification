@@ -14,6 +14,8 @@ from sklearn.tree import export_graphviz
 from IPython.display import Image
 import graphviz
 
+from src.label_mapper import *
+
 @click.command()
 @click.argument('column_name_path', type=str)
 @click.argument('x_train_path', type=str)
@@ -26,8 +28,14 @@ import graphviz
 def main(column_name_path, x_train_path,y_train_path,x_test_path,y_test_path,fig_output_folder,data_output_folder):
     X_train = pd.read_csv(x_train_path)
     X_test = pd.read_csv(x_test_path)
+    
     y_train = pd.read_csv(y_train_path).values.ravel()
-    y_test = pd.read_csv(y_test_path)
+    y_test = pd.read_csv(y_test_path).values.ravel()  
+
+    # Applying the label mapping function
+    y_train = map_labels_to_binary(y_train)
+    y_test = map_labels_to_binary(y_test)
+
     column_names = pd.read_csv(column_name_path).iloc[:, 0].to_list()
     #Creating a results dictionary
     results = {}
@@ -95,14 +103,8 @@ def main(column_name_path, x_train_path,y_train_path,x_test_path,y_test_path,fig
     test_results = {}
     test_results['Logistic Regression'] = [accuracy,precision,recall,f1]
     
-    
-    # Map label values from 1 and 2 to 0 and 1
-    y_test_binary = y_test.copy()  # Create a copy to avoid modifying the original array
-    y_test_binary[y_test_binary == 1] = 0
-    y_test_binary[y_test_binary == 2] = 1
-    
     #ROC curve plot
-    fpr, tpr, thresholds = roc_curve(y_test_binary, lr_parameterised.predict_proba(X_test)[:, 1])
+    fpr, tpr, thresholds = roc_curve(y_test, lr_parameterised.predict_proba(X_test)[:, 1])
     plt.plot(fpr, tpr, label="ROC Curve")
     plt.xlabel("FPR")
     plt.ylabel("TPR (recall)")
@@ -119,6 +121,7 @@ def main(column_name_path, x_train_path,y_train_path,x_test_path,y_test_path,fig
     plt.legend(loc="best");
 
     plt.savefig(f'{fig_output_folder}/roc_plot.png')
+
     
     
     # Creating a dataframe of the results of different models
