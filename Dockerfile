@@ -28,14 +28,14 @@ RUN conda install -y --channel conda-forge \
     pygraphviz==1.12 \
     python-graphviz==0.20.1 \
     tabulate==0.9.0 \
-    ipython==8.22.2 \
-    pytest=8.1.1
+    ipython==8.22.2
 
 
 RUN pip install \
     graphviz==0.20.1 \
     ucimlrepo==0.0.3 \
-    click==8.1.7
+    click==8.1.7 \
+    pytest=8.1.1
 
 
 RUN curl -LO https://quarto.org/download/latest/quarto-linux-amd64.deb
