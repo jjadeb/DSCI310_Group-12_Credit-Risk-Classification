@@ -1,6 +1,6 @@
 
 # Use the Python image as the base image
-FROM quay.io/jupyter/scipy-notebook:x86_64-ubuntu-22.04
+FROM quay.io/jupyter/minimal-notebook:x86_64-ubuntu-22.04
 
 USER root
 
