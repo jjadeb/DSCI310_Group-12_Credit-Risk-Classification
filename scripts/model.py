@@ -143,7 +143,6 @@ def main(column_name_path, x_train_path,y_train_path,x_test_path,y_test_path,fig
     
     scores_rf =cross_validate(rf_classifier, X_train, y_train, return_train_score=True)
     
-    
     # Define the hyperparameters to tune
     n_estimators_range = [100, 150, 200, 250, 300]
     max_depth_range = [1, 5, 10, 15, 20]
