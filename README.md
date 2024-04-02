@@ -78,7 +78,10 @@ Open a terminal at the project root in the IDE. Use command `make clean-all` to 
 Docker is a container solution used to manage the software dependencies for this project. The Docker image used for this project is based on the quay.io/jupyter/scipy-notebook:2024-02-24 image. Additional dependencies are specified int the [Dockerfile](Dockerfile).
 
 ## Running the tests
-Tests are run using the `pytest` command in the root of the project. More details about the test suite can be found in the [tests](https://github.com/DSCI-310-2024/DSCI310_Group-12_Credit-Risk-Classification/tree/main/tests) directory.
+Tests are run using the `pytest` command in the root of the project. Run 
+```
+pytest tests/*
+````
 
 ## License
 
