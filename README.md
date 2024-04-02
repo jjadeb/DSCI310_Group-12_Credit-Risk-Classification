@@ -41,7 +41,7 @@ docker build -t yovindu/project .
 
 Run the Docker container:
 ```bash
-docker run -it --rm -p 8888:8888 -v /“$(pwd)”:/home/jovyan yovindu/project
+docker run -it --rm -p 8888:8888 -v /"$(pwd)":/home/jovyan yovindu/project
 ```
 
 However, it is recommended to use Docker Compose instead of the above two commands. Run the following commands to build and start the services defined in the docker-compose.yml.
