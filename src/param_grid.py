@@ -34,7 +34,7 @@ def param_grid_for_grid_search(n_estimators_range, max_depth_range):
     --------
     n_estimators_range = [100, 150, 200, 250, 300]
     max_depth_range = [1, 5, 10, 15, 20]
-    param_grid = create_param_grid_for_grid_search(n_estimators_range, max_depth_range)
+    param_grid = param_grid_for_grid_search(n_estimators_range, max_depth_range)
     """
     
     param_grid = {

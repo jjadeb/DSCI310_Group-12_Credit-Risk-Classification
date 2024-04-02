@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.543">
+<meta name="generator" content="quarto-1.4.552">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -73,7 +73,7 @@ div.csl-indent {
   <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
   <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul>
-<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="..\credit_risk_report.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="../credit_risk_report.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
 </div>
 <main class="content" id="quarto-document-content">
 
@@ -104,7 +104,7 @@ div.csl-indent {
 
 <section id="summary" class="level2">
 <h2 class="anchored" data-anchor-id="summary">Summary</h2>
-<p>The goal of our analysis is to classify whether someone is in a good or bad credit risk position using attributes such as <code>Credit History</code>, <code>Duration</code>, and <code>Residence</code>. Our best-performing model is a <strong><em>Random Forest model</em></strong> which gave us a test score of 0.756 on unseen data, a decent result compared to the <strong><em>dummy model’s</em></strong> score of 0.699. We also obtained a <strong>accuracy score</strong> of 0.765 <strong>precision score</strong> of 0.79, a <strong>recall score</strong> of 0.908, and <strong>F1 Score</strong> of 0.845. Our model performs decently well in terms of identifying people who are at good credit position. However, if this model is to have a hand in real-world decision-making, precision should be improved to minimize classifying low credit risks as high credit risks (false positives). In addition, more research should be done to ensure the model produces fair and equitable recommendations.</p>
+<p>The goal of our analysis is to classify whether someone is in a good or bad credit risk position using attributes such as <code>Credit History</code>, <code>Duration</code>, and <code>Residence</code>. Our best-performing model is a <strong><em>Random Forest model</em></strong> which gave us a test score of 0.754 on unseen data, a decent result compared to the <strong><em>dummy model’s</em></strong> score of 0.699. We also obtained a <strong>accuracy score</strong> of 0.77 <strong>precision score</strong> of 0.676, a <strong>recall score</strong> of 0.424, and <strong>F1 Score</strong> of 0.521. Our model performs decently well in terms of identifying people who are at good credit position. However, if this model is to have a hand in real-world decision-making, precision should be improved to minimize classifying low credit risks as high credit risks (false positives). In addition, more research should be done to ensure the model produces fair and equitable recommendations.</p>
 </section>
 <section id="introduction" class="level2">
 <h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
@@ -203,18 +203,18 @@ Figure&nbsp;2: Correlation Heatmap of numeric columns
 Table&nbsp;1: Mean Train and Test scores from a 5 fold cross validation for the different models
 </figcaption>
 <div aria-describedby="tbl-scores-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="44">
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="4">
 <table class="do-not-create-environment cell table table-sm table-striped small">
 <colgroup>
 <col style="width: 27%">
-<col style="width: 16%">
+<col style="width: 15%">
 <col style="width: 18%">
 <col style="width: 18%">
 <col style="width: 19%">
 </colgroup>
 <thead>
 <tr class="header">
-<th style="text-align: left;">model</th>
+<th style="text-align: left;">Unnamed: 0</th>
 <th style="text-align: right;">fit_time</th>
 <th style="text-align: right;">score_time</th>
 <th style="text-align: right;">test_score</th>
@@ -224,23 +224,23 @@ Table&nbsp;1: Mean Train and Test scores from a 5 fold cross validation for the 
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">Dummy</td>
-<td style="text-align: right;">0.000248957</td>
-<td style="text-align: right;">0.000248384</td>
+<td style="text-align: right;">0.0013741</td>
+<td style="text-align: right;">0.000745344</td>
 <td style="text-align: right;">0.69875</td>
 <td style="text-align: right;">0.69875</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Logistic Regression</td>
-<td style="text-align: right;">0.00364494</td>
-<td style="text-align: right;">0.000520897</td>
+<td style="text-align: right;">0.594125</td>
+<td style="text-align: right;">0.0119083</td>
 <td style="text-align: right;">0.7425</td>
 <td style="text-align: right;">0.783125</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Random Forest</td>
-<td style="text-align: right;">0.0681482</td>
-<td style="text-align: right;">0.012503</td>
-<td style="text-align: right;">0.75625</td>
+<td style="text-align: right;">0.248283</td>
+<td style="text-align: right;">0.0292189</td>
+<td style="text-align: right;">0.75375</td>
 <td style="text-align: right;">1</td>
 </tr>
 </tbody>
@@ -253,7 +253,7 @@ Table&nbsp;1: Mean Train and Test scores from a 5 fold cross validation for the 
 <p>Both the models are performing better than our baseline model.</p>
 <ul>
 <li><strong>Logistic Regression:</strong> It has moderate training and prediction times and achieves a decent fit score of 0.742 on the test set, indicating reasonable performance without overfitting.</li>
-<li><strong>Random Forest:</strong> It takes significantly longer to train compared to logistic regression but achieves a slightly higher fit score on the test set. However, there’s a large discrepancy between the training (1.0) and test scores(0.75625), suggesting potential overfitting.</li>
+<li><strong>Random Forest:</strong> It takes significantly longer to train compared to logistic regression but achieves a slightly higher fit score on the test set. However, there’s a large discrepancy between the training (1.0) and test scores(0.75375), suggesting potential overfitting.</li>
 </ul>
 <div class="cell" data-execution_count="5">
 <div id="tbl-measures" class="cell quarto-float anchored" data-execution_count="5">
@@ -262,35 +262,40 @@ Table&nbsp;1: Mean Train and Test scores from a 5 fold cross validation for the 
 Table&nbsp;2: Metric Evaluation and Model Performance on unseen Test data
 </figcaption>
 <div aria-describedby="tbl-measures-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="45">
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="5">
 <table class="do-not-create-environment cell table table-sm table-striped small">
 <thead>
 <tr class="header">
-<th style="text-align: left;">Measures</th>
+<th style="text-align: right;">Unnamed: 0</th>
 <th style="text-align: right;">Logistic Regression</th>
 <th style="text-align: right;">Random Forest</th>
+<th style="text-align: left;">Measures</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">Accuracy</td>
+<td style="text-align: right;">0</td>
 <td style="text-align: right;">0.79</td>
-<td style="text-align: right;">0.765</td>
+<td style="text-align: right;">0.77</td>
+<td style="text-align: left;">Accuracy</td>
 </tr>
 <tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0.707317</td>
+<td style="text-align: right;">0.675676</td>
 <td style="text-align: left;">Precision</td>
-<td style="text-align: right;">0.811321</td>
-<td style="text-align: right;">0.790123</td>
 </tr>
 <tr class="odd">
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0.491525</td>
+<td style="text-align: right;">0.423729</td>
 <td style="text-align: left;">Recall</td>
-<td style="text-align: right;">0.914894</td>
-<td style="text-align: right;">0.907801</td>
 </tr>
 <tr class="even">
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">0.58</td>
+<td style="text-align: right;">0.520833</td>
 <td style="text-align: left;">F1 Score</td>
-<td style="text-align: right;">0.86</td>
-<td style="text-align: right;">0.844884</td>
 </tr>
 </tbody>
 </table>
@@ -459,6 +464,24 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
   function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
@@ -493,7 +516,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
     });
   }
   const xrefs = window.document.querySelectorAll('a.quarto-xref');

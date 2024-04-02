@@ -145,13 +145,12 @@ def main(column_name_path, x_train_path,y_train_path,x_test_path,y_test_path,fig
     
     
     # Define the hyperparameters to tune
-    param_grid_for_grid_search = {
-        'n_estimators': [100, 150, 200, 250, 300],  # Number of trees in the forest
-        'max_depth': [1, 5, 10, 15, 20],    # Maximum depth of the trees
-    }
+    n_estimators_range = [100, 150, 200, 250, 300]
+    max_depth_range = [1, 5, 10, 15, 20]
+    param_grid = param_grid_for_grid_search(n_estimators_range, max_depth_range)
     
     # Perform Grid Search with cross-validation
-    grid_search = GridSearchCV(estimator=rf_classifier, param_grid=param_grid_for_grid_search, cv=5)
+    grid_search = GridSearchCV(estimator=rf_classifier, param_grid=param_grid, cv=5)
     grid_search.fit(X_train, y_train)
     
     # Get the best hyperparameters
