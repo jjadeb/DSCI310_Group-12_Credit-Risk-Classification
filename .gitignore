@@ -1,2 +1,6 @@
 .ipynb_checkpoints/
 .DS_Store
+.ipython/profile_default
+.jupyter
+.local/share
+.npm/_logs

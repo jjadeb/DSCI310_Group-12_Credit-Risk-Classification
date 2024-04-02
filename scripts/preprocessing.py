@@ -5,6 +5,11 @@ from sklearn.compose import ColumnTransformer
 from sklearn.pipeline import Pipeline 
 from sklearn.model_selection import cross_val_score, cross_validate, train_test_split
 from sklearn.pipeline import Pipeline, make_pipeline
+import sys
+import os
+
+sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
+from src.data_preprocessing import *
 
 @click.command()
 @click.argument('clean_data', type=str)
@@ -13,28 +18,15 @@ from sklearn.pipeline import Pipeline, make_pipeline
 def main(clean_data, output_data_folder):
     df = pd.read_csv(f'{clean_data}')
     
-    # Splitting the dataset into attributes and target
-    X = df.drop("Credit risk", axis=1)  
-    y = df["Credit risk"]  # Target variable
-    
     # Identifying numeric and categorical columns
     numeric_features = ["Duration", "Credit amount", "Age", "Rate", "Existing credits", "Liable people"]
     categorical_features = ["Status", "Credit history", "Purpose", "Savings account", "Employement", 
                             "Personal status", "Guarantors", "Residence", "Property", "Installment", 
                             "Housing", "Job", "Telephone", "Foreign worker"]
     
-    # Creating transformers for numeric and categorical data
-    numeric_transformer = StandardScaler()
-    categorical_transformer = OneHotEncoder(handle_unknown='ignore')
-    
-    # Combining transformers into a ColumnTransformer
-    preprocessor = ColumnTransformer(
-        transformers=[
-            ("num", numeric_transformer, numeric_features),
-            ('cat', categorical_transformer, categorical_features)])
-    
-    # Applying the transformations
-    X_transformed = preprocessor.fit_transform(X)
+
+    # Using data_preprocessing function found in src
+    X_transformed, y, preprocessor = preprocess_data(df, numeric_features, categorical_features)
     
     # Shape
     X_transformed.shape

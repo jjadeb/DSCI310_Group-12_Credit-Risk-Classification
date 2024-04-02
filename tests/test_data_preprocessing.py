@@ -1,7 +1,11 @@
 import numpy as np
 import pytest
 import pandas as pd
-from data_preprocessing import preprocess_data
+import sys
+import os
+import sklearn.compose
+sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
+from src.data_preprocessing import preprocess_data
 
 numeric_features = ["Duration", "Credit amount", "Age", "Rate", "Existing credits", "Liable people"]
 categorical_features = ["Status", "Credit history", "Purpose", "Savings account", "Employment",
@@ -57,8 +61,9 @@ def test_preprocess_data(df):
                             "Personal status", "Guarantors", "Residence", "Property", "Installment",
                             "Housing", "Job", "Telephone", "Foreign worker"]
 
-    X_transformed, y = preprocess_data(df, numeric_features, categorical_features)
+    X_transformed, y, preprocessor = preprocess_data(df, numeric_features, categorical_features)
 
     assert isinstance(X_transformed, np.ndarray)
     assert isinstance(y, pd.Series)
+    assert isinstance(preprocessor, sklearn.compose._column_transformer.ColumnTransformer)
     assert X_transformed.shape[0] == df.shape[0]
