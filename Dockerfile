@@ -23,8 +23,8 @@ RUN conda install -y --channel conda-forge \
     pandas==2.2.1 \
     matplotlib==3.8.3 \
     seaborn==0.13.2 \
-    jupyterlab \
-    make \
+    jupyterlab==4.1.5 \
+    make==4.3 \
     pygraphviz==1.12 \
     python-graphviz==0.20.1 \
     tabulate==0.9.0 \
