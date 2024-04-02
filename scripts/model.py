@@ -13,8 +13,12 @@ import click
 from sklearn.tree import export_graphviz
 from IPython.display import Image
 import graphviz
+import sys
+import os
 
+sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 from src.label_mapper import *
+from src.param_grid import *
 
 @click.command()
 @click.argument('column_name_path', type=str)
@@ -141,13 +145,13 @@ def main(column_name_path, x_train_path,y_train_path,x_test_path,y_test_path,fig
     
     
     # Define the hyperparameters to tune
-    param_grid = {
+    param_grid_for_grid_search = {
         'n_estimators': [100, 150, 200, 250, 300],  # Number of trees in the forest
         'max_depth': [1, 5, 10, 15, 20],    # Maximum depth of the trees
     }
     
     # Perform Grid Search with cross-validation
-    grid_search = GridSearchCV(estimator=rf_classifier, param_grid=param_grid, cv=5)
+    grid_search = GridSearchCV(estimator=rf_classifier, param_grid=param_grid_for_grid_search, cv=5)
     grid_search.fit(X_train, y_train)
     
     # Get the best hyperparameters
