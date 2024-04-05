@@ -19,13 +19,13 @@ def exploratory_data_analysis(input_data_path, fig_output_folder, clean_data_out
     df = pd.read_csv(file_path)
     
     # Column names 
-    df.columns = ["Status", "Duration", "Credit history", 
-                    "Purpose", "Credit amount", "Savings account", "Employement", 
-                    "Rate", "Personal status", 
+    df.columns = ["Status", "Duration", "Credit_history", 
+                    "Purpose", "Credit_amount", "Savings_account", "Employement", 
+                    "Rate", "Personal_status", 
                     "Guarantors", "Residence", "Property", 
-                    "Age", "Installment", "Housing", "Existing credits", 
-                    "Job", "Liable people", 
-                    "Telephone", "Foreign worker", "Credit risk"]
+                    "Age", "Installment", "Housing", "Existing_credits", 
+                    "Job", "Liable_people", 
+                    "Telephone", "Foreign_worker", "Credit_risk"]
 
     
     # Histograms for numerical columns

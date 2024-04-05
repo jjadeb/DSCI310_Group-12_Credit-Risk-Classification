@@ -54,7 +54,7 @@ scores_rf_train = round(scores_table1['train_score'].values[2],3)
 
 ## Summary
 
-The goal of our analysis is to classify whether someone is in a good or bad credit risk position using attributes such as `Credit History`, `Duration`, and `Residence`. Our best-performing model is a ***Random Forest model*** which gave us a test score of `{python} scores_rf` on unseen data, a decent result compared to the ***dummy model's*** score of `{python} scores_dummy`. We also obtained a **accuracy score** of `{python} accuracy_rf` **precision score** of `{python} precision_rf`, a **recall score** of `{python} recall_rf`, and **F1 Score** of `{python} F1_rf`. Our model performs decently well in terms of identifying people who are at good credit position. However, if this model is to have a hand in real-world decision-making, precision should be improved to minimize classifying low credit risks as high credit risks (false positives). In addition, more research should be done to ensure the model produces fair and equitable recommendations.
+The goal of our analysis is to classify whether someone is in a good or bad credit risk position using attributes such as `Credit_History`, `Duration`, and `Residence`. Our best-performing model is a ***Random Forest model*** which gave us a test score of `{python} scores_rf` on unseen data, a decent result compared to the ***dummy model's*** score of `{python} scores_dummy`. We also obtained a **accuracy score** of `{python} accuracy_rf` **precision score** of `{python} precision_rf`, a **recall score** of `{python} recall_rf`, and **F1 Score** of `{python} F1_rf`. Our model performs decently well in terms of identifying people who are at good credit position. However, if this model is to have a hand in real-world decision-making, precision should be improved to minimize classifying low credit risks as high credit risks (false positives). In addition, more research should be done to ensure the model produces fair and equitable recommendations.
 
 
 ## Introduction
@@ -65,7 +65,7 @@ Our key question: How can we predict individuals with good or bad credit risk us
 
 The Statlog (German Credit Data) dataset, sourced from the UCI’s Machine Learning Repository [ @data], found specifically [here](https://doi.org/10.24432/C5NC77), can be used for classifying individuals as good or bad credit risks based on a variety of attributes. A cost matrix is required for evaluation, where misclassification costs are outlined. The cost matrix indicates that it is worse to classify a customer as good when they are bad, compared to classifying a customer as bad when they are good. The dataset contains 1000 instances with 20 features. Each feature has a different role, type, and demographic information, summarized as follows:
 
-- **Target Variable (Credit Risk):** *Binary*, classifies individuals as either good (= 1) or bad (= 2) credit risks
+- **Target Variable (Credit_Risk):** *Binary*, classifies individuals as either good (= 1) or bad (= 2) credit risks
 - **Status of existing checking account (Attribute1):** *Categorical*, indicates the status of the existing checking account in 4 categories, such as the balance amount or absence of a checking account.
 - **Duration (Attribute2):** *Integer*, represents the duration of credit in months.
 - **Credit history (Attribute3):** *Categorical*, describes the credit history of individuals in 3 categories, including whether credits were paid back duly or if there were payment delays.
@@ -103,7 +103,7 @@ To assess the distribution of the numerical variables and whether they require s
 
 ![Duration](../img/Duration.png){width=80%}
 
-![Credit Amount](../img/Credit%20amount.png){width=80%}
+![Credit_Amount](../img/Credit_amount.png){width=80%}
 
 ![Age](../img/Age.png){width=80%}
 

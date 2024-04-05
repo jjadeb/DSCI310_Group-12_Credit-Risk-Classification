@@ -19,10 +19,10 @@ def main(clean_data, output_data_folder):
     df = pd.read_csv(f'{clean_data}')
     
     # Identifying numeric and categorical columns
-    numeric_features = ["Duration", "Credit amount", "Age", "Rate", "Existing credits", "Liable people"]
-    categorical_features = ["Status", "Credit history", "Purpose", "Savings account", "Employement", 
-                            "Personal status", "Guarantors", "Residence", "Property", "Installment", 
-                            "Housing", "Job", "Telephone", "Foreign worker"]
+    numeric_features = ["Duration", "Credit_amount", "Age", "Rate", "Existing_credits", "Liable_people"]
+    categorical_features = ["Status", "Credit_history", "Purpose", "Savings_account", "Employement", 
+                            "Personal_status", "Guarantors", "Residence", "Property", "Installment", 
+                            "Housing", "Job", "Telephone", "Foreign_worker"]
     
 
     # Using data_preprocessing function found in src

@@ -1,4 +1,4 @@
-,Status,Duration,Credit history,Purpose,Credit amount,Savings account,Employement,Rate,Personal status,Guarantors,Residence,Property,Age,Installment,Housing,Existing credits,Job,Liable people,Telephone,Foreign worker,Credit risk
+,Status,Duration,Credit_history,Purpose,Credit_amount,Savings_account,Employement,Rate,Personal_status,Guarantors,Residence,Property,Age,Installment,Housing,Existing_credits,Job,Liable_people,Telephone,Foreign_worker,Credit_risk
 0,A11,6,A34,A43,1169,A65,A75,4,A93,A101,4,A121,67,A143,A152,2,A173,1,A192,A201,1
 1,A12,48,A32,A43,5951,A61,A73,2,A92,A101,2,A121,22,A143,A152,1,A173,1,A191,A201,2
 2,A14,12,A34,A46,2096,A61,A74,2,A93,A101,3,A121,49,A143,A152,1,A172,2,A191,A201,1

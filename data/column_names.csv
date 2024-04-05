@@ -1,19 +1,19 @@
 0
 Duration
-Credit amount
+Credit_amount
 Age
 Rate
-Existing credits
-Liable people
+Existing_credits
+Liable_people
 Status_A11
 Status_A12
 Status_A13
 Status_A14
-Credit history_A30
-Credit history_A31
-Credit history_A32
-Credit history_A33
-Credit history_A34
+Credit_history_A30
+Credit_history_A31
+Credit_history_A32
+Credit_history_A33
+Credit_history_A34
 Purpose_A40
 Purpose_A41
 Purpose_A410
@@ -24,20 +24,20 @@ Purpose_A45
 Purpose_A46
 Purpose_A48
 Purpose_A49
-Savings account_A61
-Savings account_A62
-Savings account_A63
-Savings account_A64
-Savings account_A65
+Savings_account_A61
+Savings_account_A62
+Savings_account_A63
+Savings_account_A64
+Savings_account_A65
 Employement_A71
 Employement_A72
 Employement_A73
 Employement_A74
 Employement_A75
-Personal status_A91
-Personal status_A92
-Personal status_A93
-Personal status_A94
+Personal_status_A91
+Personal_status_A92
+Personal_status_A93
+Personal_status_A94
 Guarantors_A101
 Guarantors_A102
 Guarantors_A103
@@ -61,5 +61,5 @@ Job_A173
 Job_A174
 Telephone_A191
 Telephone_A192
-Foreign worker_A201
-Foreign worker_A202
+Foreign_worker_A201
+Foreign_worker_A202
