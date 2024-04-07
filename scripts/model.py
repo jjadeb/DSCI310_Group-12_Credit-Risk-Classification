@@ -1,3 +1,11 @@
+# authors: Shahrukh Islam Prithibi, Sophie Yang, Yovindu Don, Jade Bouchard
+# date: 2024-04-07
+#
+# This script creates linear regression and random forest models for predicting credit risk.
+# The script evaluates these models and saves fitted linear regression coefficients,
+# test scores, cross validation scores, tree plots, and an ROC curve plot.
+#
+# Usage: python scripts/model.py data/column_names.csv data/x_train.csv data/y_train.csv data/x_test.csv data/y_test.csv img data
 
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import roc_curve
