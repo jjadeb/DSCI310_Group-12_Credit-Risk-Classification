@@ -9,7 +9,7 @@ We welcome any contributions from input to feedback and bug reports. Here are so
 
 ##### Setting Up Your Environment
 1. **Fork and Clone**: Fork the repository on GitHub, then clone your fork to your local machine.
-2. **Dependencies**: Run `conda env create -f environment.yml` to install dependencies.
+2. **Dependencies**: Build the Docker container as specified in the README.md file of this repository.
 
 ##### Creating a Branch
 1. **Branch Creation**: Create a new branch for your changes
