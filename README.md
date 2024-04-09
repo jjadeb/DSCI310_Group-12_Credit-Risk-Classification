@@ -30,36 +30,46 @@ The final report can be found
 
 ## Docker
 
-Build and run the project using Docker with the following commands:
+Build and run the project using Docker with the following steps:
 
-First, ensure you have Docker installed and running on the machine. Clone this repository and navigate to the directory. One method of running the docker container is the following:
+**Setup**
 
-Build the Docker image:
+1. First, ensure you have [Docker](https://www.docker.com/products/docker-desktop/) installed and running on your machine.
+2. Clone this repository, and navigate to the root of the repository in a terminal window.
+
+The preferred method to run the Docker container is to use docker-compose. Run the following command in the terminal to build and start the container. The below command activates the commands specified in [docker-compose.yml](docker-compose.yml).
+
 ```bash
-docker build -t yovindu/project .
-```
-
-Run the Docker container:
-```bash
-docker run -it --rm -p 8888:8888 -v /"$(pwd)":/home/jovyan yovindu/project
-```
-
-However, it is recommended to use Docker Compose instead of the above two commands. Run the following commands to build and start the services defined in the docker-compose.yml.
-
-```bash 
 docker-compose up
 ```
 
-Stop the Docker container by running:
+Check the Developer Notes section of this README for details on how to run our analysis.
+
+Stop the Docker container by first typing `Cntrl + C`in the terminal where you launched the container, and then run the following command:
 
 ```
 bash docker-compose down
 ```
+
+Another method of running the docker container is by executing the following commands:
+
+Build the Docker image (optional):
+```bash
+docker build -t yovindu/project --platform=linux/amd64 .
+```
+
+Run the Docker container:
+```bash
+docker run -it --rm -p 8888:8888 -v /"$(pwd)":/home/jovyan --platform=linux/amd64 yovindu/project
+```
+
+In order to exit the container type Cntrl + C in the terminal where you launched the container.
+
 ## Developer Notes
 ### Working with the project in the container using Jupyter lab
 (Below instructions copied form this [repository](https://github.com/ttimbers/breast_cancer_predictor_py?tab=readme-ov-file#working-with-the-project-in-the-container-using-jupyter-lab))
 
-In the terminal, look for a URL that starts with http://127.0.0.1:8888/lab?token= . Copy and paste that URL into your browser.
+After launching the Docker Container, in the terminal look for a URL that starts with http://127.0.0.1:8888/lab?token= . Copy and paste that URL into your browser.
 
 You should now see the Jupyter lab IDE in your browser, with all the project files visible in the file browser pane on the left side of the screen.
 

@@ -6,3 +6,4 @@ services:
     ports:
       - "8888:8888" 
     image: yovindu/project:latest
+    platform: linux/amd64
