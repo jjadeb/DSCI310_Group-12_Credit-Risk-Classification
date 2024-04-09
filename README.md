@@ -36,7 +36,7 @@ Build and run the project using Docker by following these steps:
 
 1. First, ensure you have [Docker](https://www.docker.com/products/docker-desktop/) installed and running on your machine.
 2. Clone this repository, and navigate to the root of the repository in a terminal window.
-
+--------------------------------------
 The preferred method to run the Docker container is to use docker-compose. Run the following command in the terminal to build and start the container. The below command activates the commands specified in [docker-compose.yml](docker-compose.yml).
 
 ```bash
@@ -50,7 +50,7 @@ Stop the Docker container by first typing `Cntrl + C`in the terminal where you l
 ```
 docker-compose rm
 ```
-
+--------------------------------------
 Another method of running the docker container is by executing the following commands:
 
 Build the Docker image (optional):
