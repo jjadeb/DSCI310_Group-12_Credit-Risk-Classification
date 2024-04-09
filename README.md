@@ -58,6 +58,8 @@ Build the Docker image (optional):
 docker build -t yovindu/project --platform=linux/amd64 .
 ```
 
+Check the [Developer Notes](#developer-notes) section of this README for details on how to run our analysis.
+
 Run the Docker container:
 ```bash
 docker run -it --rm -p 8888:8888 -v /"$(pwd)":/home/jovyan --platform=linux/amd64 yovindu/project
