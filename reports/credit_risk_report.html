@@ -104,7 +104,7 @@ div.csl-indent {
 
 <section id="summary" class="level2">
 <h2 class="anchored" data-anchor-id="summary">Summary</h2>
-<p>The goal of our analysis is to classify whether someone is in a good or bad credit risk position using attributes such as <code>Credit History</code>, <code>Duration</code>, and <code>Residence</code>. Our best-performing model is a <strong><em>Random Forest model</em></strong> which gave us a test score of 0.754 on unseen data, a decent result compared to the <strong><em>dummy model’s</em></strong> score of 0.699. We also obtained a <strong>accuracy score</strong> of 0.77 <strong>precision score</strong> of 0.676, a <strong>recall score</strong> of 0.424, and <strong>F1 Score</strong> of 0.521. Our model performs decently well in terms of identifying people who are at good credit position. However, if this model is to have a hand in real-world decision-making, precision should be improved to minimize classifying low credit risks as high credit risks (false positives). In addition, more research should be done to ensure the model produces fair and equitable recommendations.</p>
+<p>The goal of our analysis is to classify whether someone is in a good or bad credit risk position using attributes such as <code>Credit_History</code>, <code>Duration</code>, and <code>Residence</code>. Our best-performing model is a <strong><em>Random Forest model</em></strong> which gave us a test score of 0.754 on unseen data, a decent result compared to the <strong><em>dummy model’s</em></strong> score of 0.699. We also obtained a <strong>accuracy score</strong> of 0.77 <strong>precision score</strong> of 0.676, a <strong>recall score</strong> of 0.424, and <strong>F1 Score</strong> of 0.521. Our model performs decently well in terms of identifying people who are at good credit position. However, if this model is to have a hand in real-world decision-making, precision should be improved to minimize classifying low credit risks as high credit risks (false positives). In addition, more research should be done to ensure the model produces fair and equitable recommendations.</p>
 </section>
 <section id="introduction" class="level2">
 <h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
@@ -112,7 +112,7 @@ div.csl-indent {
 <p>Our key question: How can we predict individuals with good or bad credit risk using relevant and representative input features?</p>
 <p>The Statlog (German Credit Data) dataset, sourced from the UCI’s Machine Learning Repository <span class="citation" data-cites="data">(<a href="#ref-data" role="doc-biblioref">Hofmann 1994</a>)</span>, found specifically <a href="https://doi.org/10.24432/C5NC77">here</a>, can be used for classifying individuals as good or bad credit risks based on a variety of attributes. A cost matrix is required for evaluation, where misclassification costs are outlined. The cost matrix indicates that it is worse to classify a customer as good when they are bad, compared to classifying a customer as bad when they are good. The dataset contains 1000 instances with 20 features. Each feature has a different role, type, and demographic information, summarized as follows:</p>
 <ul>
-<li><strong>Target Variable (Credit Risk):</strong> <em>Binary</em>, classifies individuals as either good (= 1) or bad (= 2) credit risks</li>
+<li><strong>Target Variable (Credit_Risk):</strong> <em>Binary</em>, classifies individuals as either good (= 1) or bad (= 2) credit risks</li>
 <li><strong>Status of existing checking account (Attribute1):</strong> <em>Categorical</em>, indicates the status of the existing checking account in 4 categories, such as the balance amount or absence of a checking account.</li>
 <li><strong>Duration (Attribute2):</strong> <em>Integer</em>, represents the duration of credit in months.</li>
 <li><strong>Credit history (Attribute3):</strong> <em>Categorical</em>, describes the credit history of individuals in 3 categories, including whether credits were paid back duly or if there were payment delays.</li>
@@ -162,8 +162,8 @@ div.csl-indent {
 <div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="../img/Credit%20amount.png" class="img-fluid figure-img" style="width:80.0%"></p>
-<figcaption>Credit Amount</figcaption>
+<p><img src="../img/Credit_amount.png" class="img-fluid figure-img" style="width:80.0%"></p>
+<figcaption>Credit_Amount</figcaption>
 </figure>
 </div>
 </div>
@@ -203,7 +203,7 @@ Figure&nbsp;2: Correlation Heatmap of numeric columns
 Table&nbsp;1: Mean Train and Test scores from a 5 fold cross validation for the different models
 </figcaption>
 <div aria-describedby="tbl-scores-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="4">
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="14">
 <table class="do-not-create-environment cell table table-sm table-striped small">
 <colgroup>
 <col style="width: 27%">
@@ -224,22 +224,22 @@ Table&nbsp;1: Mean Train and Test scores from a 5 fold cross validation for the 
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">Dummy</td>
-<td style="text-align: right;">0.0013741</td>
-<td style="text-align: right;">0.000745344</td>
+<td style="text-align: right;">0.00142789</td>
+<td style="text-align: right;">0.00143385</td>
 <td style="text-align: right;">0.69875</td>
 <td style="text-align: right;">0.69875</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Logistic Regression</td>
-<td style="text-align: right;">0.594125</td>
-<td style="text-align: right;">0.0119083</td>
+<td style="text-align: right;">0.59328</td>
+<td style="text-align: right;">0.0148641</td>
 <td style="text-align: right;">0.7425</td>
 <td style="text-align: right;">0.783125</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Random Forest</td>
-<td style="text-align: right;">0.248283</td>
-<td style="text-align: right;">0.0292189</td>
+<td style="text-align: right;">0.272364</td>
+<td style="text-align: right;">0.0298786</td>
 <td style="text-align: right;">0.75375</td>
 <td style="text-align: right;">1</td>
 </tr>
@@ -262,7 +262,7 @@ Table&nbsp;1: Mean Train and Test scores from a 5 fold cross validation for the 
 Table&nbsp;2: Metric Evaluation and Model Performance on unseen Test data
 </figcaption>
 <div aria-describedby="tbl-measures-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="5">
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="15">
 <table class="do-not-create-environment cell table table-sm table-striped small">
 <thead>
 <tr class="header">

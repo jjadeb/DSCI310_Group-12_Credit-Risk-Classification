@@ -14,8 +14,8 @@ def preprocess_data(df, numeric_features, categorical_features):
         tuple: Tuple containing preprocessed features (X_transformed), target variable (y), and preprocessor opject (preprocessor)
     """
     # "Credit risk" is the target variable and is always dropped
-    y = df["Credit risk"]
-    X = df.drop("Credit risk", axis=1)
+    y = df["Credit_risk"]
+    X = df.drop("Credit_risk", axis=1)
 
     # Creating transformers for numeric and categorical data
     numeric_transformer = StandardScaler()
