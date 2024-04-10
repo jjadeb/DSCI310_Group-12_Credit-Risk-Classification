@@ -8,10 +8,10 @@ USER root
 RUN apt-get update
 
 RUN apt-get install -y --no-install-recommends \
-    pandoc==3.1.12.3 \
-    pandoc-citeproc==0.17.0.1 \
-    curl==7.81.0 \
-    gdebi-core==0.9.5.7+nmu6 \
+    pandoc \
+    pandoc-citeproc \
+    curl \
+    gdebi-core \
     && rm -rf /var/lib/apt/lists/*
 
 # Install the Python packages 
