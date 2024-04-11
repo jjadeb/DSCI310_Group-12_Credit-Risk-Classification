@@ -12,6 +12,7 @@ RUN apt-get install -y --no-install-recommends \
     pandoc-citeproc \
     curl \
     gdebi-core \
+    lmodern \
     && rm -rf /var/lib/apt/lists/*
 
 # Install the Python packages 
