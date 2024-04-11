@@ -24,9 +24,7 @@ import graphviz
 import sys
 import os
 
-sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
-from src.label_mapper import *
-from src.param_grid import *
+from pycredits import preprocess_data, column_histogram, map_labels_to_binary, param_grid_for_grid_search
 
 @click.command()
 @click.argument('column_name_path', type=str)

@@ -16,8 +16,7 @@ import seaborn as sns
 import sys
 import os
 
-sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
-from src.column_histogram import *
+from pycredits import preprocess_data, column_histogram, map_labels_to_binary, param_grid_for_grid_search
 
 @click.command()
 @click.argument('input_data_path', type=str)
