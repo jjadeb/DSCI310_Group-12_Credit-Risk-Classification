@@ -36,11 +36,6 @@ accuracy_rf = round(measures_table1['Random Forest'].values[0],3)
 precision_rf = round(measures_table1['Random Forest'].values[1],3)
 recall_rf = round(measures_table1['Random Forest'].values[2],3)
 F1_rf = round(measures_table1['Random Forest'].values[3],3)
-
-accuracy_lr = round(measures_table1['Logistic Regression'].values[0],3)
-precision_lr = round(measures_table1['Logistic Regression'].values[1],3)
-recall_lr = round(measures_table1['Logistic Regression'].values[2],3)
-F1_lr = round(measures_table1['Logistic Regression'].values[3],3)
 ```
 ```{python}
 
@@ -88,7 +83,9 @@ The Statlog (German Credit Data) dataset, sourced from the UCI’s Machine Learn
 - **Foreign worker (Attribute20):** *Categorical*, specifies whether the individual is a foreign worker.
 
 ## Analysis
-The project aimed to develop a predictive model to assess whether an individual represents a good or bad credit risk. To establish a baseline, a dummy model was implemented initially. Subsequently, Logistic Regression and Random Forest algorithms were employed to enhance the predictive capability. All variables in the dataset were used to fit the model. The dataset was split into training and testing sets using an 80-20 split ratio to facilitate model evaluation. Categorical variables were subjected to one-hot encoding (OHE), while continuous variables were standardized using Standard Scaler to ensure uniformity in scale across features.
+The project aimed to develop a predictive model to assess whether an individual represents a good or bad credit risk. To establish a baseline, a dummy model was implemented initially. In our analysis, we initially turned to logistic regression, a well-established method renowned for its interpretability in binary classification tasks. Logistic regression allowed us to discern the influence of individual features on credit risk prediction, providing insights into the driving factors behind our model's decisions. However, logistic regression is a linear model and may not capture complex relationships between features. To address this limitation, we introduced a random forest model to harness its capacity for capturing intricate feature interactions and handling non-linear relationships. Random forests are an ensemble learning method that constructs multiple decision trees to improve predictive performance and reduce overfitting. By leveraging the strengths of both models, we aimed to develop a robust predictive model capable of accurately classifying credit risks.
+
+All variables in the dataset were used to fit the model. The dataset was split into training and testing sets using an 80-20 split ratio to facilitate model evaluation. Categorical variables were subjected to one-hot encoding (OHE), while continuous variables were standardized using Standard Scaler to ensure uniformity in scale across features.
 
 Hyperparameter optimization was conducted to fine-tune the models. This process involved exploring various combinations of hyperparameters to identify the optimal settings for maximizing model performance. Additionally, a 5-fold cross-validation (CV) technique was utilized to assess the robustness of the models. Cross-validation aids in estimating the model's performance on unseen data by partitioning the dataset into multiple subsets for training and testing.
 
@@ -147,11 +144,7 @@ precision_rf = measures_table['Random Forest'].values[1]
 recall_rf = measures_table['Random Forest'].values[2]
 F1_rf = measures_table['Random Forest'].values[3]
 
-accuracy_lr = measures_table['Logistic Regression'].values[0]
-precision_lr = measures_table['Logistic Regression'].values[1]
-recall_lr = measures_table['Logistic Regression'].values[2]
-F1_lr = measures_table['Logistic Regression'].values[3]
-Markdown(measures_table.to_markdown(index = False)) 
+Markdown(measures_table.to_markdown(index = False))
 ```
 
 In @tbl-measures we see both the models are performing well on the test set, with relatively high accuracy, precision, recall, and F1 score. It correctly classifies a majority of instances while maintaining a good balance between false positives and false negatives. Here, in this instance we would want to avoid false negatives where a person at credit risk is not deemed to be at risk, and a high recall score ensures the model is performing well in avoiding false negatives. 
