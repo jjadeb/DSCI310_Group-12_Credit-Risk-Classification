@@ -1,0 +1,33 @@
+digraph Tree {
+node [shape=box, style="filled", color="black", fontname="helvetica"] ;
+edge [fontname="helvetica"] ;
+0 [label="Employement_A75 <= 0.5\nsamples = 100.0%\nvalue = [0.722, 0.278]", fillcolor="#efb185"] ;
+1 [label="Age <= -0.884\nsamples = 75.4%\nvalue = [0.692, 0.308]", fillcolor="#f1b991"] ;
+0 -> 1 [labeldistance=2.5, labelangle=45, headlabel="True"] ;
+2 [label="Status_A14 <= 0.5\nsamples = 16.9%\nvalue = [0.526, 0.474]", fillcolor="#fcf3eb"] ;
+1 -> 2 ;
+3 [label="(...)", fillcolor="#C0C0C0"] ;
+2 -> 3 ;
+60 [label="(...)", fillcolor="#C0C0C0"] ;
+2 -> 60 ;
+87 [label="Credit_history_A30 <= 0.5\nsamples = 58.5%\nvalue = [0.741, 0.259]", fillcolor="#eead7e"] ;
+1 -> 87 ;
+88 [label="(...)", fillcolor="#C0C0C0"] ;
+87 -> 88 ;
+271 [label="(...)", fillcolor="#C0C0C0"] ;
+87 -> 271 ;
+284 [label="Purpose_A43 <= 0.5\nsamples = 24.6%\nvalue = [0.81, 0.19]", fillcolor="#eb9f68"] ;
+0 -> 284 [labeldistance=2.5, labelangle=-45, headlabel="False"] ;
+285 [label="Duration <= 1.004\nsamples = 16.1%\nvalue = [0.698, 0.302]", fillcolor="#f0b78e"] ;
+284 -> 285 ;
+286 [label="(...)", fillcolor="#C0C0C0"] ;
+285 -> 286 ;
+327 [label="(...)", fillcolor="#C0C0C0"] ;
+285 -> 327 ;
+342 [label="Age <= -0.356\nsamples = 8.5%\nvalue = [0.987, 0.013]", fillcolor="#e5833c"] ;
+284 -> 342 ;
+343 [label="(...)", fillcolor="#C0C0C0"] ;
+342 -> 343 ;
+352 [label="(...)", fillcolor="#C0C0C0"] ;
+342 -> 352 ;
+}

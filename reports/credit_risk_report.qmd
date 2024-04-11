@@ -54,33 +54,35 @@ The goal of our analysis is to classify whether someone is in a good or bad cred
 
 ## Introduction
 
-Understanding and predicting credit risk is crucial for banks in the finance sector. As the Journal of Applied Statistics shares “credit risk modelling, namely its component Probability of Default (PD), is very helpful in the consumer credit loan grant decision” [@journal-applied-stat]. Further, a report by McKinsey shares that “at an average commercial bank, credit-related assets produce about 40 percent of total revenues” [@mckinseycredit]. With this in mind, our data science project will develop a predictive model aimed at discerning good from bad credit risk. 
+First, let's define good and bad credit; bad credit is a person’s history and future likelihood of not paying credit card bills on time and good credit is the opposite. Understanding and predicting credit risk is crucial for businesses in the finance sector, as supported by articles from the Journal of Applied Statistics and McKinsey & Company. “Credit risk modelling, namely its component Probability of Default (PD), is very helpful in the consumer credit loan grant decision.” [@journal-applied-stat]. At an average commercial bank, credit-related assets produce about 40 percent of total revenues; credit-related costs, including provisions and write-offs, account for a significant fraction of expenses” [@mckinseycredit]. With this in mind, our data science project will develop a predictive model aimed at discerning good from bad credit risk. 
 
 Our key question: How can we predict individuals with good or bad credit risk using relevant and representative input features?
 
-The Statlog (German Credit Data) dataset, sourced from the UCI’s Machine Learning Repository [ @data], found specifically [here](https://doi.org/10.24432/C5NC77), can be used for classifying individuals as good or bad credit risks based on a variety of attributes. A cost matrix is required for evaluation, where misclassification costs are outlined. The cost matrix indicates that it is worse to classify a customer as good when they are bad, compared to classifying a customer as bad when they are good. The dataset contains 1000 instances with 20 features. Each feature has a different role, type, and demographic information, summarized as follows:
+The [Statlog (German Credit Data)](https://doi.org/10.24432/C5NC77) dataset, sourced from the UCI’s Machine Learning Repository [ @data], can be used for classifying individuals as good or bad credit risks based on a variety of attributes. A cost matrix is required for evaluation, where misclassification costs are outlined. The cost matrix indicates that it is worse to classify a customer as good when they are bad, compared to classifying a customer as bad when they are good. The dataset contains 1000 instances with 20 features. Each feature has a different role, type, and demographic information, summarized as follows. Note: for data types, Bin = Binary, Cat = Categorical, Int = Integer.
 
-- **Target Variable (Credit_Risk):** *Binary*, classifies individuals as either good (= 1) or bad (= 2) credit risks
-- **Status of existing checking account (Attribute1):** *Categorical*, indicates the status of the existing checking account in 4 categories, such as the balance amount or absence of a checking account.
-- **Duration (Attribute2):** *Integer*, represents the duration of credit in months.
-- **Credit history (Attribute3):** *Categorical*, describes the credit history of individuals in 3 categories, including whether credits were paid back duly or if there were payment delays.
-- **Purpose (Attribute4):** *Categorical*, specifies the purpose of the credit in 11 categories, like for a car purchase, furniture, education, or business, etc.
-- **Credit amount (Attribute5):** *Integer*, denotes the amount of credit requested.
-- **Savings account/bonds (Attribute6):** *Categorical*, indicates the status of savings accounts or bonds in categorical brackets of DEM currency.
-- **Present employment since (Attribute7):** *Categorical*, shows the duration of present employment.
-- **Installment rate (Attribute8):** *Integer*, represents the installment rate in terms of a percentage of disposable income.
-- **Personal status and sex (Attribute9):** *Categorical*, provides information about personal status and sex.
-- **Other debtors/guarantors (Attribute10):** *Categorical*, indicates the presence of other debtors or guarantors.
-- **Present residence since (Attribute11):** *Integer*, denotes the duration of present residence.
-- **Property (Attribute12):** *Categorical*, describes the type of property owned.
-- **Age in years (Attribute13):** *Integer*, represents the age of individuals.
-- **Other installment plans (Attribute14):** *Categorical*, specifies other installment plans held by individuals.
-- **Housing (Attribute15):** *Categorical*, indicates the housing status.
-- **Number of existing credits at this bank (Attribute16):** *Integer*, denotes the number of existing credits at this bank.
-- **Job (Attribute17):** *Categorical*, describes the job status of individuals.
-- **Number of people being liable to provide maintenance for (Attribute18):** *Integer*, represents the number of dependents.
-- **Telephone (Attribute19):** *Categorical*, indicates the presence of a telephone registered under the customer's name.
-- **Foreign worker (Attribute20):** *Categorical*, specifies whether the individual is a foreign worker.
+| Feature                                           | Type | Description                                                                                                       |
+|---------------------------------------------------|------|-------------------------------------------------------------------------------------------------------------------|
+| Target Variable (Credit Risk)                     | Bin  | Classifies individuals as either good (= 1) or bad (= 2) credit risks                                            |
+| Status of existing checking account (Attribute1)  | Cat  | Indicates the status of the existing checking account in 4 categories, such as the balance amount or absence of a checking account |
+| Duration (Attribute2)                             | Int  | Represents the duration of credit in months                                                                      |
+| Credit history (Attribute3)                       | Cat  | Describes the credit history of individuals in 3 categories, including whether credits were paid back duly or if there were payment delays |
+| Purpose (Attribute4)                              | Cat  | Specifies the purpose of the credit in 11 categories, like for a car purchase, furniture, education, or business, etc. |
+| Credit amount (Attribute5)                        | Int  | Denotes the amount of credit requested                                                                           |
+| Savings account/bonds (Attribute6)                | Cat  | Indicates the status of savings accounts or bonds in categorical brackets of DEM currency                        |
+| Present employment since (Attribute7)             | Cat  | Shows the duration of present employment                                                                         |
+| Installment rate (Attribute8)                     | Int  | Represents the installment rate in terms of a percentage of disposable income                                     |
+| Personal status and sex (Attribute9)              | Cat  | Provides information about personal status and sex                                                               |
+| Other debtors/guarantors (Attribute10)            | Cat  | Indicates the presence of other debtors or guarantors                                                            |
+| Present residence since (Attribute11)             | Int  | Denotes the duration of present residence                                                                        |
+| Property (Attribute12)                            | Cat  | Describes the type of property owned                                                                             |
+| Age in years (Attribute13)                        | Int  | Represents the age of individuals                                                                                |
+| Other installment plans (Attribute14)             | Cat  | Specifies other installment plans held by individuals                                                            |
+| Housing (Attribute15)                             | Cat  | Indicates the housing status                                                                                     |
+| Number of existing credits at this bank (Attribute16) | Int | Denotes the number of existing credits at this bank                                                              |
+| Job (Attribute17)                                 | Cat  | Describes the job status of individuals                                                                          |
+| Number of people being liable to provide maintenance for (Attribute18) | Int | Represents the number of dependents                                                                              |
+| Telephone (Attribute19)                           | Cat  | Indicates the presence of a telephone registered under the customer's name                                        |
+| Foreign worker (Attribute20)                      | Cat  | Specifies whether the individual is a foreign worker                                                            |
 
 ## Analysis
 The project aimed to develop a predictive model to assess whether an individual represents a good or bad credit risk. To establish a baseline, a dummy model was implemented initially. In our analysis, we initially turned to logistic regression, a well-established method renowned for its interpretability in binary classification tasks. Logistic regression allowed us to discern the influence of individual features on credit risk prediction, providing insights into the driving factors behind our model's decisions. However, logistic regression is a linear model and may not capture complex relationships between features. To address this limitation, we introduced a random forest model to harness its capacity for capturing intricate feature interactions and handling non-linear relationships. Random forests are an ensemble learning method that constructs multiple decision trees to improve predictive performance and reduce overfitting. By leveraging the strengths of both models, we aimed to develop a robust predictive model capable of accurately classifying credit risks.

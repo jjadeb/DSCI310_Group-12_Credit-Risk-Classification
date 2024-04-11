@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.553">
+<meta name="generator" content="quarto-1.4.542">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -73,7 +73,7 @@ div.csl-indent {
   <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
   <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul>
-<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="../credit_risk_report.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="credit_risk_report.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
 </div>
 <main class="content" id="quarto-document-content">
 
@@ -108,32 +108,130 @@ div.csl-indent {
 </section>
 <section id="introduction" class="level2">
 <h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
-<p>Understanding and predicting credit risk is crucial for banks in the finance sector. As the Journal of Applied Statistics shares “credit risk modelling, namely its component Probability of Default (PD), is very helpful in the consumer credit loan grant decision” <span class="citation" data-cites="journal-applied-stat">(<a href="#ref-journal-applied-stat" role="doc-biblioref">Eliana Costa e Silva and Faria 2020</a>)</span>. Further, a report by McKinsey shares that “at an average commercial bank, credit-related assets produce about 40 percent of total revenues” <span class="citation" data-cites="mckinseycredit">(<a href="#ref-mckinseycredit" role="doc-biblioref">Goraieb, Kumar, and Pepanides, n.d.</a>)</span>. With this in mind, our data science project will develop a predictive model aimed at discerning good from bad credit risk.</p>
+<p>First, let’s define good and bad credit; bad credit is a person’s history and future likelihood of not paying credit card bills on time and good credit is the opposite. Understanding and predicting credit risk is crucial for businesses in the finance sector, as supported by articles from the Journal of Applied Statistics and McKinsey &amp; Company. “Credit risk modelling, namely its component Probability of Default (PD), is very helpful in the consumer credit loan grant decision.” <span class="citation" data-cites="journal-applied-stat">(<a href="#ref-journal-applied-stat" role="doc-biblioref">Eliana Costa e Silva and Faria 2020</a>)</span>. At an average commercial bank, credit-related assets produce about 40 percent of total revenues; credit-related costs, including provisions and write-offs, account for a significant fraction of expenses” <span class="citation" data-cites="mckinseycredit">(<a href="#ref-mckinseycredit" role="doc-biblioref">Goraieb, Kumar, and Pepanides, n.d.</a>)</span>. With this in mind, our data science project will develop a predictive model aimed at discerning good from bad credit risk.</p>
 <p>Our key question: How can we predict individuals with good or bad credit risk using relevant and representative input features?</p>
-<p>The Statlog (German Credit Data) dataset, sourced from the UCI’s Machine Learning Repository <span class="citation" data-cites="data">(<a href="#ref-data" role="doc-biblioref">Hofmann 1994</a>)</span>, found specifically <a href="https://doi.org/10.24432/C5NC77">here</a>, can be used for classifying individuals as good or bad credit risks based on a variety of attributes. A cost matrix is required for evaluation, where misclassification costs are outlined. The cost matrix indicates that it is worse to classify a customer as good when they are bad, compared to classifying a customer as bad when they are good. The dataset contains 1000 instances with 20 features. Each feature has a different role, type, and demographic information, summarized as follows:</p>
-<ul>
-<li><strong>Target Variable (Credit_Risk):</strong> <em>Binary</em>, classifies individuals as either good (= 1) or bad (= 2) credit risks</li>
-<li><strong>Status of existing checking account (Attribute1):</strong> <em>Categorical</em>, indicates the status of the existing checking account in 4 categories, such as the balance amount or absence of a checking account.</li>
-<li><strong>Duration (Attribute2):</strong> <em>Integer</em>, represents the duration of credit in months.</li>
-<li><strong>Credit history (Attribute3):</strong> <em>Categorical</em>, describes the credit history of individuals in 3 categories, including whether credits were paid back duly or if there were payment delays.</li>
-<li><strong>Purpose (Attribute4):</strong> <em>Categorical</em>, specifies the purpose of the credit in 11 categories, like for a car purchase, furniture, education, or business, etc.</li>
-<li><strong>Credit amount (Attribute5):</strong> <em>Integer</em>, denotes the amount of credit requested.</li>
-<li><strong>Savings account/bonds (Attribute6):</strong> <em>Categorical</em>, indicates the status of savings accounts or bonds in categorical brackets of DEM currency.</li>
-<li><strong>Present employment since (Attribute7):</strong> <em>Categorical</em>, shows the duration of present employment.</li>
-<li><strong>Installment rate (Attribute8):</strong> <em>Integer</em>, represents the installment rate in terms of a percentage of disposable income.</li>
-<li><strong>Personal status and sex (Attribute9):</strong> <em>Categorical</em>, provides information about personal status and sex.</li>
-<li><strong>Other debtors/guarantors (Attribute10):</strong> <em>Categorical</em>, indicates the presence of other debtors or guarantors.</li>
-<li><strong>Present residence since (Attribute11):</strong> <em>Integer</em>, denotes the duration of present residence.</li>
-<li><strong>Property (Attribute12):</strong> <em>Categorical</em>, describes the type of property owned.</li>
-<li><strong>Age in years (Attribute13):</strong> <em>Integer</em>, represents the age of individuals.</li>
-<li><strong>Other installment plans (Attribute14):</strong> <em>Categorical</em>, specifies other installment plans held by individuals.</li>
-<li><strong>Housing (Attribute15):</strong> <em>Categorical</em>, indicates the housing status.</li>
-<li><strong>Number of existing credits at this bank (Attribute16):</strong> <em>Integer</em>, denotes the number of existing credits at this bank.</li>
-<li><strong>Job (Attribute17):</strong> <em>Categorical</em>, describes the job status of individuals.</li>
-<li><strong>Number of people being liable to provide maintenance for (Attribute18):</strong> <em>Integer</em>, represents the number of dependents.</li>
-<li><strong>Telephone (Attribute19):</strong> <em>Categorical</em>, indicates the presence of a telephone registered under the customer’s name.</li>
-<li><strong>Foreign worker (Attribute20):</strong> <em>Categorical</em>, specifies whether the individual is a foreign worker.</li>
-</ul>
+<p>The <a href="https://doi.org/10.24432/C5NC77">Statlog (German Credit Data)</a> dataset, sourced from the UCI’s Machine Learning Repository <span class="citation" data-cites="data">(<a href="#ref-data" role="doc-biblioref">Hofmann 1994</a>)</span>, can be used for classifying individuals as good or bad credit risks based on a variety of attributes. A cost matrix is required for evaluation, where misclassification costs are outlined. The cost matrix indicates that it is worse to classify a customer as good when they are bad, compared to classifying a customer as bad when they are good. The dataset contains 1000 instances with 20 features. Each feature has a different role, type, and demographic information, summarized as follows. Note: for data types, Bin = Binary, Cat = Categorical, Int = Integer.</p>
+<table class="table">
+<colgroup>
+<col style="width: 29%">
+<col style="width: 3%">
+<col style="width: 66%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Feature</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Target Variable (Credit Risk)</td>
+<td>Bin</td>
+<td>Classifies individuals as either good (= 1) or bad (= 2) credit risks</td>
+</tr>
+<tr class="even">
+<td>Status of existing checking account (Attribute1)</td>
+<td>Cat</td>
+<td>Indicates the status of the existing checking account in 4 categories, such as the balance amount or absence of a checking account</td>
+</tr>
+<tr class="odd">
+<td>Duration (Attribute2)</td>
+<td>Int</td>
+<td>Represents the duration of credit in months</td>
+</tr>
+<tr class="even">
+<td>Credit history (Attribute3)</td>
+<td>Cat</td>
+<td>Describes the credit history of individuals in 3 categories, including whether credits were paid back duly or if there were payment delays</td>
+</tr>
+<tr class="odd">
+<td>Purpose (Attribute4)</td>
+<td>Cat</td>
+<td>Specifies the purpose of the credit in 11 categories, like for a car purchase, furniture, education, or business, etc.</td>
+</tr>
+<tr class="even">
+<td>Credit amount (Attribute5)</td>
+<td>Int</td>
+<td>Denotes the amount of credit requested</td>
+</tr>
+<tr class="odd">
+<td>Savings account/bonds (Attribute6)</td>
+<td>Cat</td>
+<td>Indicates the status of savings accounts or bonds in categorical brackets of DEM currency</td>
+</tr>
+<tr class="even">
+<td>Present employment since (Attribute7)</td>
+<td>Cat</td>
+<td>Shows the duration of present employment</td>
+</tr>
+<tr class="odd">
+<td>Installment rate (Attribute8)</td>
+<td>Int</td>
+<td>Represents the installment rate in terms of a percentage of disposable income</td>
+</tr>
+<tr class="even">
+<td>Personal status and sex (Attribute9)</td>
+<td>Cat</td>
+<td>Provides information about personal status and sex</td>
+</tr>
+<tr class="odd">
+<td>Other debtors/guarantors (Attribute10)</td>
+<td>Cat</td>
+<td>Indicates the presence of other debtors or guarantors</td>
+</tr>
+<tr class="even">
+<td>Present residence since (Attribute11)</td>
+<td>Int</td>
+<td>Denotes the duration of present residence</td>
+</tr>
+<tr class="odd">
+<td>Property (Attribute12)</td>
+<td>Cat</td>
+<td>Describes the type of property owned</td>
+</tr>
+<tr class="even">
+<td>Age in years (Attribute13)</td>
+<td>Int</td>
+<td>Represents the age of individuals</td>
+</tr>
+<tr class="odd">
+<td>Other installment plans (Attribute14)</td>
+<td>Cat</td>
+<td>Specifies other installment plans held by individuals</td>
+</tr>
+<tr class="even">
+<td>Housing (Attribute15)</td>
+<td>Cat</td>
+<td>Indicates the housing status</td>
+</tr>
+<tr class="odd">
+<td>Number of existing credits at this bank (Attribute16)</td>
+<td>Int</td>
+<td>Denotes the number of existing credits at this bank</td>
+</tr>
+<tr class="even">
+<td>Job (Attribute17)</td>
+<td>Cat</td>
+<td>Describes the job status of individuals</td>
+</tr>
+<tr class="odd">
+<td>Number of people being liable to provide maintenance for (Attribute18)</td>
+<td>Int</td>
+<td>Represents the number of dependents</td>
+</tr>
+<tr class="even">
+<td>Telephone (Attribute19)</td>
+<td>Cat</td>
+<td>Indicates the presence of a telephone registered under the customer’s name</td>
+</tr>
+<tr class="odd">
+<td>Foreign worker (Attribute20)</td>
+<td>Cat</td>
+<td>Specifies whether the individual is a foreign worker</td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="analysis" class="level2">
 <h2 class="anchored" data-anchor-id="analysis">Analysis</h2>
@@ -141,6 +239,7 @@ div.csl-indent {
 <p>All variables in the dataset were used to fit the model. The dataset was split into training and testing sets using an 80-20 split ratio to facilitate model evaluation. Categorical variables were subjected to one-hot encoding (OHE), while continuous variables were standardized using Standard Scaler to ensure uniformity in scale across features.</p>
 <p>Hyperparameter optimization was conducted to fine-tune the models. This process involved exploring various combinations of hyperparameters to identify the optimal settings for maximizing model performance. Additionally, a 5-fold cross-validation (CV) technique was utilized to assess the robustness of the models. Cross-validation aids in estimating the model’s performance on unseen data by partitioning the dataset into multiple subsets for training and testing.</p>
 <p>The performance of the models was evaluated using key metrics such as precision, recall, accuracy, and F1 scores on the test set. Precision measures the proportion of true positive predictions among all positive predictions, recall measures the proportion of true positive predictions among all actual positive instances, accuracy measures the overall correctness of predictions, and F1 score is the harmonic mean of precision and recall, providing a balanced assessment of the model’s performance.</p>
+<p>The selection of evaluation metrics in our credit risk assessment model is not only a technical decision but an effort to address the real-world consequences of false positives and false negatives. In the realm of credit risk, a false positive where it incorrectly identifies a viable borrower as a credit risk can have far-reaching implications including unfairly denying individuals access to necessary financial resources. On the other hand, false negatives which is failing to flag a genuine credit risk poses a substantial threat to financial institutions, risking financial losses and undermining the stability of the credit. The careful balance by precision, recall, accuracy, and the F1 score in our model directly impacts these outcomes. These metrics guide us in fine-tuning our model to not only achieve statistical robustness but also ensure fairness and reliability in credit risk assessment, ultimately contributing to a more equitable and trustworthy model. Through this meticulous approach, we aim to minimize harm and promote positive outcomes for both lenders and borrowers.</p>
 <p>By employing these methodologies, the project aimed to develop a reliable predictive model capable of accurately discerning good and bad credit risks.</p>
 </section>
 <section id="results-and-discussions" class="level2">
@@ -356,6 +455,7 @@ Figure&nbsp;4: Visualization of first 3 trees in Random Forest
 <section id="conclusion" class="level2">
 <h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
 <p>This model could potentially be used by banks to determine who they should loan money to since analyzing credit risks is important to banks <span class="citation" data-cites="bloomberg2024">(<a href="#ref-bloomberg2024" role="doc-biblioref">Vossos and Dobby 2024</a>)</span>. Even though there are potential benefits to using this logistic regression model, we should keep in mind negative impacts it could have. Using a model such as the one we created could result in un-intentional discrimination. For example, <code>Age</code> is an attribute in our data. Our model has the coefficient -0.21 for Age indicating a larger age value will have a better credit prediction, holding other variables constant. If our model was used to determine who should get a bank loan, there would be risk of age discrimination which is unethical and illegal <span class="citation" data-cites="bchrt">(<a href="#ref-bchrt" role="doc-biblioref"><span>“Personal Characteristics, Grounds of Discrimination Protected in the BC Human Rights Code”</span> 2023</a>)</span>.</p>
+<p>The inadvertent biases such as age discrimination identified in our current models, highlight the need for a more nuanced approach to model development that goes beyond traditional performance metrics. Delving deeper into techniques that actively mitigate bias such as differential privacy or synthetic data generation can help ensure our models make fair decisions across all demographics. Ethical frameworks and guidelines can also guide the responsible development and deployment of these models ensuring that they align with both societal values and legal standards. By prioritizing these considerations it can not only enhance the technical robustness of the predictive models but also ensure such a predictive model is not misused.</p>
 <p>While we only explored a linear regression model and random forest model, it would be interesting to see if gradient-boosted classifiers have improved accuracy and precision. If we used more complex classifiers such as lightLGBM, we would benefit from using SHAP graphs to understand how the model is making predictions generally, and on an individual basis. In addition, research could be done on how to prevent our model from discriminating based on age, gender, etc. as sometimes simply removing attributes does not lessen discrimination.</p>
 </section>
 <section id="references" class="level2 unnumbered">
@@ -460,24 +560,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
-    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-    var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp('/' + window.location.host + '/');
-    var isInternal = (href) => {
-        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
-    }
-    // Inspect non-navigation links and adorn them if external
- 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
-    for (var i=0; i<links.length; i++) {
-      const link = links[i];
-      if (!isInternal(link.href)) {
-        // undo the damage that might have been done by quarto-nav.js in the case of
-        // links that we want to consider external
-        if (link.dataset.originalHref !== undefined) {
-          link.href = link.dataset.originalHref;
-        }
-      }
-    }
   function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
@@ -512,11 +594,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      if (note) {
-        return note.innerHTML;
-      } else {
-        return "";
-      }
+      return note.innerHTML;
     });
   }
   const xrefs = window.document.querySelectorAll('a.quarto-xref');
@@ -564,12 +642,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       if (window.Quarto?.typesetMath) {
         window.Quarto.typesetMath(note);
       }
-      // TODO in 1.5, we should make sure this works without a callout special case
-      if (note.classList.contains("callout")) {
-        return note.outerHTML;
-      } else {
-        return note.innerHTML;
-      }
+      return note.innerHTML;
     }
   }
   for (var i=0; i<xrefs.length; i++) {
