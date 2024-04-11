@@ -137,7 +137,8 @@ div.csl-indent {
 </section>
 <section id="analysis" class="level2">
 <h2 class="anchored" data-anchor-id="analysis">Analysis</h2>
-<p>The project aimed to develop a predictive model to assess whether an individual represents a good or bad credit risk. To establish a baseline, a dummy model was implemented initially. Subsequently, Logistic Regression and Random Forest algorithms were employed to enhance the predictive capability. All variables in the dataset were used to fit the model. The dataset was split into training and testing sets using an 80-20 split ratio to facilitate model evaluation. Categorical variables were subjected to one-hot encoding (OHE), while continuous variables were standardized using Standard Scaler to ensure uniformity in scale across features.</p>
+<p>The project aimed to develop a predictive model to assess whether an individual represents a good or bad credit risk. To establish a baseline, a dummy model was implemented initially. In our analysis, we initially turned to logistic regression, a well-established method renowned for its interpretability in binary classification tasks. Logistic regression allowed us to discern the influence of individual features on credit risk prediction, providing insights into the driving factors behind our model’s decisions. However, logistic regression is a linear model and may not capture complex relationships between features. To address this limitation, we introduced a random forest model to harness its capacity for capturing intricate feature interactions and handling non-linear relationships. Random forests are an ensemble learning method that constructs multiple decision trees to improve predictive performance and reduce overfitting. By leveraging the strengths of both models, we aimed to develop a robust predictive model capable of accurately classifying credit risks.</p>
+<p>All variables in the dataset were used to fit the model. The dataset was split into training and testing sets using an 80-20 split ratio to facilitate model evaluation. Categorical variables were subjected to one-hot encoding (OHE), while continuous variables were standardized using Standard Scaler to ensure uniformity in scale across features.</p>
 <p>Hyperparameter optimization was conducted to fine-tune the models. This process involved exploring various combinations of hyperparameters to identify the optimal settings for maximizing model performance. Additionally, a 5-fold cross-validation (CV) technique was utilized to assess the robustness of the models. Cross-validation aids in estimating the model’s performance on unseen data by partitioning the dataset into multiple subsets for training and testing.</p>
 <p>The performance of the models was evaluated using key metrics such as precision, recall, accuracy, and F1 scores on the test set. Precision measures the proportion of true positive predictions among all positive predictions, recall measures the proportion of true positive predictions among all actual positive instances, accuracy measures the overall correctness of predictions, and F1 score is the harmonic mean of precision and recall, providing a balanced assessment of the model’s performance.</p>
 <p>By employing these methodologies, the project aimed to develop a reliable predictive model capable of accurately discerning good and bad credit risks.</p>
@@ -224,22 +225,22 @@ Table&nbsp;1: Mean Train and Test scores from a 5 fold cross validation for the 
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">Dummy</td>
-<td style="text-align: right;">0.000663137</td>
-<td style="text-align: right;">0.000576878</td>
+<td style="text-align: right;">0.000963974</td>
+<td style="text-align: right;">0.000651312</td>
 <td style="text-align: right;">0.69875</td>
 <td style="text-align: right;">0.69875</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Logistic Regression</td>
-<td style="text-align: right;">0.00460157</td>
-<td style="text-align: right;">0.00120215</td>
+<td style="text-align: right;">0.00453272</td>
+<td style="text-align: right;">0.00121245</td>
 <td style="text-align: right;">0.7425</td>
 <td style="text-align: right;">0.783125</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Random Forest</td>
-<td style="text-align: right;">0.465935</td>
-<td style="text-align: right;">0.0652181</td>
+<td style="text-align: right;">0.336887</td>
+<td style="text-align: right;">0.0435783</td>
 <td style="text-align: right;">0.75375</td>
 <td style="text-align: right;">1</td>
 </tr>
