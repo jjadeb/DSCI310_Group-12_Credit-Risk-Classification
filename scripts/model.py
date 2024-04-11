@@ -35,6 +35,7 @@ from pycredits import preprocess_data, column_histogram, map_labels_to_binary, p
 @click.argument('fig_output_folder', type=str)
 @click.argument('data_output_folder', type=str)
 
+
 def main(column_name_path, x_train_path,y_train_path,x_test_path,y_test_path,fig_output_folder,data_output_folder):
     X_train = pd.read_csv(x_train_path)
     X_test = pd.read_csv(x_test_path)
