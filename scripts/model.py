@@ -95,17 +95,8 @@ def main(column_name_path, x_train_path,y_train_path,x_test_path,y_test_path,fig
     #Accessing the coefficients of the variables. 
     pd.DataFrame({"columns":column_names, "coefs":list(lr_parameterised.coef_[0])}).sort_values("coefs").to_csv(f'{data_output_folder}/linear-reg_coefficients.csv', index = False)
     
-    #Predicting on test set
-    y_pred = lr_parameterised.predict(X_test)
-    
-    # Evaluate the model performance on the test set
-    accuracy = accuracy_score(y_test, y_pred)
-    precision = precision_score(y_test, y_pred)
-    recall = recall_score(y_test, y_pred)
-    f1 = f1_score(y_test, y_pred)
-
     test_results = {}
-    test_results['Logistic Regression'] = [accuracy,precision,recall,f1]
+    # test_results['Logistic Regression'] = [accuracy,precision,recall,f1]
     
     #ROC curve plot
     fpr, tpr, thresholds = roc_curve(y_test, lr_parameterised.predict_proba(X_test)[:, 1])
@@ -178,10 +169,10 @@ def main(column_name_path, x_train_path,y_train_path,x_test_path,y_test_path,fig
     recall = recall_score(y_test, y_pred)
     f1 = f1_score(y_test, y_pred)
 
+    test_results['Measures'] = ['Accuracy', 'Precision','Recall','F1 Score']
     test_results['Random Forest'] = [accuracy,precision,recall,f1]
     
     test_results = pd.DataFrame(test_results)
-    test_results['Measures'] = ['Accuracy', 'Precision','Recall','F1 Score']
     test_results.to_csv(f'{data_output_folder}/test_scores.csv')
     
     feature_names = (
