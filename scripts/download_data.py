@@ -1,3 +1,12 @@
+# authors: Shahrukh Islam Prithibi, Sophie Yang, Yovindu Don, Jade Bouchard
+# date: 2024-04-07
+#
+# This script fetches the credit risk data from the UCI Machine Learning Repository.
+# It then saves the data at the provided filepath.
+#
+# Usage: python scripts/download_data.py data/german.csv
+
+
 from ucimlrepo import fetch_ucirepo 
 import click
 

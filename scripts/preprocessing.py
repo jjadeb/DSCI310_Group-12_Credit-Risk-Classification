@@ -1,3 +1,13 @@
+# authors: Shahrukh Islam Prithibi, Sophie Yang, Yovindu Don, Jade Bouchard
+# date: 2024-04-07
+#
+# This script uses one-hot encoding and scaling to transofrm the cleaned data.
+# It also splits the data into training and test data. The script then saves this data as 
+# well as saves the new column names for the transformed data.
+#
+# Usage: python scripts/preprocessing.py data/german_clean.csv data
+
+
 import click
 import pandas as pd
 from sklearn.preprocessing import StandardScaler, OneHotEncoder

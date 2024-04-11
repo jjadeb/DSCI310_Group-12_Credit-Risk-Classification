@@ -1,3 +1,13 @@
+# authors: Shahrukh Islam Prithibi, Sophie Yang, Yovindu Don, Jade Bouchard
+# date: 2024-04-07
+#
+# This script renames the column names to be more intuitive and then saves the
+# cleaned data as well as creates and saves various exploratory visualizations
+#
+# Usage: python scripts/cleaning_and_eda.py data/german.csv img data/german_clean.csv
+
+
+
 import pandas as pd
 from ucimlrepo import fetch_ucirepo 
 import click
