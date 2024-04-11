@@ -6,8 +6,6 @@
 #
 # Usage: python scripts/cleaning_and_eda.py data/german.csv img data/german_clean.csv
 
-
-
 import pandas as pd
 from ucimlrepo import fetch_ucirepo 
 import click
@@ -16,7 +14,11 @@ import seaborn as sns
 import sys
 import os
 
-from pycredits import preprocess_data, column_histogram, map_labels_to_binary, param_grid_for_grid_search
+# Import functions from pycredits
+from pycredits.column_histogram import column_histogram
+from pycredits.data_preprocessing import preprocess_data
+from pycredits.label_mapper import map_labels_to_binary
+from pycredits.param_grid import param_grid_for_grid_search
 
 @click.command()
 @click.argument('input_data_path', type=str)
