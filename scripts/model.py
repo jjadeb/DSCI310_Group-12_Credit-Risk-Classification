@@ -1,3 +1,11 @@
+# authors: Shahrukh Islam Prithibi, Sophie Yang, Yovindu Don, Jade Bouchard
+# date: 2024-04-07
+#
+# This script creates linear regression and random forest models for predicting credit risk.
+# The script evaluates these models and saves fitted linear regression coefficients,
+# test scores, cross validation scores, tree plots, and an ROC curve plot.
+#
+# Usage: python scripts/model.py data/column_names.csv data/x_train.csv data/y_train.csv data/x_test.csv data/y_test.csv img data
 
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import roc_curve
@@ -16,9 +24,7 @@ import graphviz
 import sys
 import os
 
-sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
-from src.label_mapper import *
-from src.param_grid import *
+from pycredits import preprocess_data, column_histogram, map_labels_to_binary, param_grid_for_grid_search
 
 @click.command()
 @click.argument('column_name_path', type=str)
@@ -28,6 +34,7 @@ from src.param_grid import *
 @click.argument('y_test_path', type=str)
 @click.argument('fig_output_folder', type=str)
 @click.argument('data_output_folder', type=str)
+
 
 def main(column_name_path, x_train_path,y_train_path,x_test_path,y_test_path,fig_output_folder,data_output_folder):
     X_train = pd.read_csv(x_train_path)
@@ -143,15 +150,13 @@ def main(column_name_path, x_train_path,y_train_path,x_test_path,y_test_path,fig
     
     scores_rf =cross_validate(rf_classifier, X_train, y_train, return_train_score=True)
     
-    
     # Define the hyperparameters to tune
-    param_grid_for_grid_search = {
-        'n_estimators': [100, 150, 200, 250, 300],  # Number of trees in the forest
-        'max_depth': [1, 5, 10, 15, 20],    # Maximum depth of the trees
-    }
+    n_estimators_range = [100, 150, 200, 250, 300]
+    max_depth_range = [1, 5, 10, 15, 20]
+    param_grid = param_grid_for_grid_search(n_estimators_range, max_depth_range)
     
     # Perform Grid Search with cross-validation
-    grid_search = GridSearchCV(estimator=rf_classifier, param_grid=param_grid_for_grid_search, cv=5)
+    grid_search = GridSearchCV(estimator=rf_classifier, param_grid=param_grid, cv=5)
     grid_search.fit(X_train, y_train)
     
     # Get the best hyperparameters

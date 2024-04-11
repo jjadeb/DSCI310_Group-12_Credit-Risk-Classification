@@ -54,7 +54,7 @@ scores_rf_train = round(scores_table1['train_score'].values[2],3)
 
 ## Summary
 
-The goal of our analysis is to classify whether someone is in a good or bad credit risk position using attributes such as `Credit History`, `Duration`, and `Residence`. Our best-performing model is a ***Random Forest model*** which gave us a test score of `{python} scores_rf` on unseen data, a decent result compared to the ***dummy model's*** score of `{python} scores_dummy`. We also obtained a **accuracy score** of `{python} accuracy_rf` **precision score** of `{python} precision_rf`, a **recall score** of `{python} recall_rf`, and **F1 Score** of `{python} F1_rf`. Our model performs decently well in terms of identifying people who are at good credit position. However, if this model is to have a hand in real-world decision-making, precision should be improved to minimize classifying low credit risks as high credit risks (false positives). In addition, more research should be done to ensure the model produces fair and equitable recommendations.
+The goal of our analysis is to classify whether someone is in a good or bad credit risk position using attributes such as `Credit_History`, `Duration`, and `Residence`. Our best-performing model is a ***Random Forest model*** which gave us a test score of `{python} scores_rf` on unseen data, a decent result compared to the ***dummy model's*** score of `{python} scores_dummy`. We also obtained a **accuracy score** of `{python} accuracy_rf` **precision score** of `{python} precision_rf`, a **recall score** of `{python} recall_rf`, and **F1 Score** of `{python} F1_rf`. Our model performs decently well in terms of identifying people who are at good credit position. However, if this model is to have a hand in real-world decision-making, precision should be improved to minimize classifying low credit risks as high credit risks (false positives). In addition, more research should be done to ensure the model produces fair and equitable recommendations.
 
 
 ## Introduction
@@ -65,7 +65,7 @@ Our key question: How can we predict individuals with good or bad credit risk us
 
 The Statlog (German Credit Data) dataset, sourced from the UCI’s Machine Learning Repository [ @data], found specifically [here](https://doi.org/10.24432/C5NC77), can be used for classifying individuals as good or bad credit risks based on a variety of attributes. A cost matrix is required for evaluation, where misclassification costs are outlined. The cost matrix indicates that it is worse to classify a customer as good when they are bad, compared to classifying a customer as bad when they are good. The dataset contains 1000 instances with 20 features. Each feature has a different role, type, and demographic information, summarized as follows:
 
-- **Target Variable (Credit Risk):** *Binary*, classifies individuals as either good (= 1) or bad (= 2) credit risks
+- **Target Variable (Credit_Risk):** *Binary*, classifies individuals as either good (= 1) or bad (= 2) credit risks
 - **Status of existing checking account (Attribute1):** *Categorical*, indicates the status of the existing checking account in 4 categories, such as the balance amount or absence of a checking account.
 - **Duration (Attribute2):** *Integer*, represents the duration of credit in months.
 - **Credit history (Attribute3):** *Categorical*, describes the credit history of individuals in 3 categories, including whether credits were paid back duly or if there were payment delays.
@@ -94,6 +94,8 @@ Hyperparameter optimization was conducted to fine-tune the models. This process 
 
 The performance of the models was evaluated using key metrics such as precision, recall, accuracy, and F1 scores on the test set. Precision measures the proportion of true positive predictions among all positive predictions, recall measures the proportion of true positive predictions among all actual positive instances, accuracy measures the overall correctness of predictions, and F1 score is the harmonic mean of precision and recall, providing a balanced assessment of the model's performance.
 
+The selection of evaluation metrics in our credit risk assessment model is not only a technical decision but an effort to address the real-world consequences of false positives and false negatives. In the realm of credit risk, a false positive where it incorrectly identifies a viable borrower as a credit risk can have far-reaching implications  including unfairly denying individuals  access to necessary financial resources.  On the other hand, false negatives which is failing to flag a genuine credit risk poses a substantial threat to financial institutions, risking financial losses and undermining the stability of the credit. The careful balance by precision, recall, accuracy, and the F1 score in our model directly impacts these outcomes. These metrics guide us in fine-tuning our model to not only achieve statistical robustness but also ensure fairness and reliability in credit risk assessment, ultimately contributing to a more equitable and trustworthy model. Through this meticulous approach, we aim to minimize harm and promote positive outcomes for both lenders and borrowers.
+
 By employing these methodologies, the project aimed to develop a reliable predictive model capable of accurately discerning good and bad credit risks.
 
 ## Results and Discussions
@@ -103,7 +105,7 @@ To assess the distribution of the numerical variables and whether they require s
 
 ![Duration](../img/Duration.png){width=80%}
 
-![Credit Amount](../img/Credit%20amount.png){width=80%}
+![Credit_Amount](../img/Credit_amount.png){width=80%}
 
 ![Age](../img/Age.png){width=80%}
 
@@ -175,6 +177,8 @@ Visualization of first 3 trees in Random Forest
 ## Conclusion
 
 This model could potentially be used by banks to determine who they should loan money to since analyzing credit risks is important to banks [@bloomberg2024]. Even though there are potential benefits to using this logistic regression model, we should keep in mind negative impacts it could have. Using a model such as the one we created could result in un-intentional discrimination. For example, `Age` is an attribute in our data. Our model has the coefficient -0.21 for Age indicating a larger age value will have a better credit prediction, holding other variables constant. If our model was used to determine who should get a bank loan, there would be risk of age discrimination which is unethical and illegal [@bchrt].
+
+The inadvertent biases such as age discrimination identified in our current models, highlight the need for a more nuanced approach to model development that goes beyond traditional performance metrics. Delving deeper into techniques that actively mitigate bias such as differential privacy or synthetic data generation can help ensure our models make fair decisions across all demographics. Ethical frameworks and guidelines can also guide the responsible development and deployment of these models ensuring that they align with both societal values and legal standards. By prioritizing these considerations it can not only enhance the technical robustness of the predictive models but also ensure such a predictive model is not misused.  
 
 While we only explored a linear regression model and random forest model, it would be interesting to see if gradient-boosted classifiers have improved accuracy and precision. If we used more complex classifiers such as lightLGBM, we would benefit from using SHAP graphs to understand how the model is making predictions generally, and on an individual basis. In addition, research could be done on how to prevent our model from discriminating based on age, gender, etc. as sometimes simply removing attributes does not lessen discrimination.
 
