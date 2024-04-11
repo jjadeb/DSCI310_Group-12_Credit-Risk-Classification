@@ -4,3 +4,6 @@
 .jupyter
 .local/share
 .npm/_logs
+.bash_history
+__pycache__/
+
