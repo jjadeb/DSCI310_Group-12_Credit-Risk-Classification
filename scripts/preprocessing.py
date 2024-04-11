@@ -18,7 +18,12 @@ from sklearn.pipeline import Pipeline, make_pipeline
 import sys
 import os
 
-from pycredits import preprocess_data, column_histogram, map_labels_to_binary, param_grid_for_grid_search
+# Import functions from pycredits
+from pycredits.column_histogram import column_histogram
+from pycredits.data_preprocessing import preprocess_data
+from pycredits.label_mapper import map_labels_to_binary
+from pycredits.param_grid import param_grid_for_grid_search
+
 
 @click.command()
 @click.argument('clean_data', type=str)
@@ -35,7 +40,7 @@ def main(clean_data, output_data_folder):
     
 
     # Using data_preprocessing function found in src
-    X_transformed, y, preprocessor = preprocess_data(df, numeric_features, categorical_features)
+    X_transformed, y, preprocessor = process_data(df, numeric_features, categorical_features)
     
     # Shape
     X_transformed.shape
