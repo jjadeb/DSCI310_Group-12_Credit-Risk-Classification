@@ -86,7 +86,7 @@ docker compose run --rm myapp bash
 To exit the container type `exit` in the terminal.
 
 ### Project Execution and Cleanup 
-Open a terminal at the project root in the IDE. Use the command 
+Open a terminal at the project root in Jupyter or VSCode. Use the command 
 
 ```bash
 make clean-all

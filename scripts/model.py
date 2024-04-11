@@ -15,9 +15,11 @@ import graphviz
 import sys
 import os
 
-sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
-from src.label_mapper import *
-from src.param_grid import *
+# Import functions from pycredits
+from pycredits.column_histogram import column_histogram
+from pycredits.data_preprocessing import preprocess_data
+from pycredits.label_mapper import map_labels_to_binary
+from pycredits.param_grid import param_grid_for_grid_search
 
 @click.command()
 @click.argument('column_name_path', type=str)
@@ -27,6 +29,7 @@ from src.param_grid import *
 @click.argument('y_test_path', type=str)
 @click.argument('fig_output_folder', type=str)
 @click.argument('data_output_folder', type=str)
+
 
 def main(column_name_path, x_train_path,y_train_path,x_test_path,y_test_path,fig_output_folder,data_output_folder):
     X_train = pd.read_csv(x_train_path)

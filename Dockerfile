@@ -12,6 +12,7 @@ RUN apt-get install -y --no-install-recommends \
     pandoc-citeproc \
     curl \
     gdebi-core \
+    lmodern \
     && rm -rf /var/lib/apt/lists/*
 
 # Install the Python packages 
@@ -34,7 +35,8 @@ RUN conda install -y --channel conda-forge \
 RUN pip install \
     graphviz==0.20.1 \
     ucimlrepo==0.0.3 \
-    click==8.1.7
+    click==8.1.7 \
+    pycredits==0.0.3
 
 
 RUN curl -LO https://quarto.org/download/latest/quarto-linux-amd64.deb
