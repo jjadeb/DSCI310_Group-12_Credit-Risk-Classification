@@ -24,7 +24,6 @@ from pycredits.data_preprocessing import preprocess_data
 from pycredits.label_mapper import map_labels_to_binary
 from pycredits.param_grid import param_grid_for_grid_search
 
-
 @click.command()
 @click.argument('clean_data', type=str)
 @click.argument('output_data_folder', type=str)
@@ -40,7 +39,7 @@ def main(clean_data, output_data_folder):
     
 
     # Using data_preprocessing function found in src
-    X_transformed, y, preprocessor = process_data(df, numeric_features, categorical_features)
+    X_transformed, y, preprocessor = preprocess_data(df, numeric_features, categorical_features)
     
     # Shape
     X_transformed.shape
