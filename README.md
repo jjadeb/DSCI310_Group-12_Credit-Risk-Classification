@@ -35,7 +35,7 @@ Build and run the project using Docker by following these steps:
 **Setup**
 
 1. First, ensure you have [Docker](https://www.docker.com/products/docker-desktop/) installed and running on your machine.
-2. Clone this repository, and navigate to the root of the repository in a terminal window.
+2. [Clone](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository) this repository, and navigate to the root of the repository in a terminal window.
 
 Choose one of the following two options for launching the Docker container.
 
